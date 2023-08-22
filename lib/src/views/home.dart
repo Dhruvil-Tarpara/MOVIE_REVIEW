@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_review/src/provider/firebase/firestore/firebase_cloud.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            FirebaseCloudHelper.firebaseCloudHelper.insertData();
+          },
           child: const Text("hello"),
         ),
       ),
