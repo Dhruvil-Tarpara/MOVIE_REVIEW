@@ -4,5 +4,4 @@ part of 'login_bloc.dart';
 class LoginState with _$LoginState {
   const factory LoginState.initial() = _Initial;
   const factory LoginState.success(UserData loginSuccess) = _Success;
-
 }

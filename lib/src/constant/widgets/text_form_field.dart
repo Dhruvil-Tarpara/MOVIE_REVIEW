@@ -13,6 +13,7 @@ class FxTextFormField extends StatelessWidget {
   final int? maxLine;
   final TextStyle? textStyle;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
   final bool? readOnly;
 
   const FxTextFormField({
@@ -29,6 +30,7 @@ class FxTextFormField extends StatelessWidget {
     this.onChanged,
     this.readOnly,
     this.prefix,
+    this.onTap,
   });
 
   @override
@@ -36,6 +38,7 @@ class FxTextFormField extends StatelessWidget {
     return TextFormField(
       readOnly: readOnly ?? false,
       onChanged: onChanged,
+      onTap: onTap,
       style: textStyle,
       maxLines: maxLine,
       obscureText: obscureText ?? false,

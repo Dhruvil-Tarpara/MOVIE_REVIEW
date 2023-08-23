@@ -4,7 +4,7 @@ import 'package:movie_review/src/constant/colors.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
-import 'package:movie_review/src/provider/bloc/bloc/login_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/utils/validetion.dart';
 import 'package:movie_review/src/views/login.dart';
@@ -45,6 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: ConstColor.white,
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
