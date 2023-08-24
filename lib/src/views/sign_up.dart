@@ -5,6 +5,8 @@ import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
 import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
+import 'package:movie_review/src/utils/hive/hive.dart';
+import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/utils/validetion.dart';
 import 'package:movie_review/src/views/login.dart';
@@ -38,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void dispose() {
     super.dispose();
-    cancelController();
+    _cancelController();
   }
 
   @override
@@ -50,11 +52,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         listener: (context, state) {
           state.whenOrNull(
             success: (loginSuccess) => (loginSuccess.user != null)
-                ? Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  )
+                ? Navigator.of(context)
+                    .pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    )
+                    .then((value) =>
+                        HiveHelper.hiveHelper.set(HiveKeys.signUp, true))
+                    .then(
+                      (value) => _clearController(),
+                    )
                 : ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(loginSuccess.error ?? ""),
@@ -207,7 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               )
               .then(
-                (value) => cancelController(),
+                (value) => _clearController(),
               );
         },
         buttonText: ConstString.haveAccount,
@@ -216,14 +224,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void clearController() {
+  void _clearController() {
     _userNameController.clear();
     _emailController.clear();
     _passwordController.clear();
     _conformPasswordController.clear();
   }
 
-  void cancelController() {
+  void _cancelController() {
     _userNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();

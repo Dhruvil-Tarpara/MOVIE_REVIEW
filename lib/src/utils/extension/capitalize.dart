@@ -6,7 +6,7 @@ extension StringExtension on String {
 
 extension DubouleExtension on String {
   double todouble() {
-    return double.tryParse("") ?? 0.0;
+    return double.tryParse(this) ?? 0.0;
   }
 }
 

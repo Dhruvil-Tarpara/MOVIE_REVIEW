@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_review/src/constant/colors.dart';
+import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
+import 'package:movie_review/src/provider/firebase/auth/auth.dart';
+import 'package:movie_review/src/provider/firebase/auth/model.dart';
+import 'package:movie_review/src/utils/hive/hive.dart';
+import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/utils/media_query.dart';
+import 'package:movie_review/src/views/details.dart';
+import 'package:movie_review/src/views/login.dart';
 import 'package:movie_review/src/views/movie.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    Global.users = Users.fromJson(HiveHelper.hiveHelper.get(HiveKeys.user));
   }
 
   @override
@@ -31,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: ConstColor.white,
         elevation: 0,
+        iconTheme: IconThemeData(color: ConstColor.black),
         leading: IconButton(
           onPressed: () {
             _key.currentState!.openDrawer();
@@ -40,6 +49,39 @@ class _HomeScreenState extends State<HomeScreen> {
             color: ConstColor.primary2,
           ),
         ),
+        title: FxText(
+          text: Global.users.userName ?? "",
+          size: 16,
+          color: ConstColor.black,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              FirebaseAuthHelper.firebaseAuthHelper.firebaseAuth.signOut();
+              HiveHelper.hiveHelper.set(HiveKeys.login, false);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.logout,
+              color: ConstColor.primary2,
+            ),
+          ),
+          (Global.users.url != null)
+              ? CircleAvatar(
+                  backgroundImage: NetworkImage(Global.users.url ?? ""),
+                )
+              : const CircleAvatar(
+                  backgroundImage: AssetImage(Global.userImage),
+                ),
+          const SizedBox(
+            width: 10,
+          )
+        ],
       ),
       drawer: const Drawer(
         child: Column(
@@ -78,9 +120,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
-                    itemBuilder: (context, index) => Container(
-                      height: 200,
-                      child: FxText(text: data[index].movieName),
+                    itemBuilder: (context, index) => ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                DetailScreen(movie: data[index],),
+                          ),
+                        );
+                      },
+                      title: FxText(text: data[index].movieName ?? ""),
                     ),
                   ),
                   error: (massage) => Center(
@@ -108,5 +158,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Widget userImage() {
+    return (Global.users.url != null)
+        ? CircleAvatar(
+            backgroundImage: NetworkImage(Global.users.url ?? ""),
+          )
+        : const CircleAvatar(
+            backgroundImage: AssetImage(Global.uploadImage),
+          );
   }
 }

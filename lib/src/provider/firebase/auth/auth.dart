@@ -20,7 +20,7 @@ class FirebaseAuthHelper {
       await firebaseAuth.currentUser!.sendEmailVerification();
       return UserData(
         error: null,
-        user: credential.user,
+        user: Users.fromDocument(credential.user),
       );
     } catch (e) {
       final status = AuthExceptionHandler.handleException(e);
@@ -42,7 +42,7 @@ class FirebaseAuthHelper {
       );
       return UserData(
         error: null,
-        user: credential.user,
+        user: Users.fromDocument(credential.user),
       );
     } catch (e) {
       final status = AuthExceptionHandler.handleException(e);
@@ -50,6 +50,15 @@ class FirebaseAuthHelper {
         error: AuthExceptionHandler.generateExceptionMessage(status),
         user: null,
       );
+    }
+  }
+
+  Future<bool> logout() async {
+    try {
+      await firebaseAuth.signOut();
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 }

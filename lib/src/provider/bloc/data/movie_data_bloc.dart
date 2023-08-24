@@ -19,12 +19,12 @@ class MovieDataBloc extends Bloc<MovieDataEvent, MovieDataState> {
           if (allMovie.isNotEmpty) {
             emit(_Success(allMovie));
           } else {
-            emit(const _Error(ConstString.errorMassage));
+            emit(const _Error(ConstString.noData));
           }
         } else if (event is _SearchData) {
           emit(const _Loding());
           List<Movie> data = allMovie
-              .where((element) => element.movieName.contains(event.value))
+              .where((element) => element.movieName!.contains(event.value))
               .toList();
 
           if (data.isNotEmpty) {
@@ -32,14 +32,14 @@ class MovieDataBloc extends Bloc<MovieDataEvent, MovieDataState> {
           } else {
             emit(const _Loding());
             await Future.delayed(const Duration(milliseconds: 600));
-            emit(const _Error("Data not founed...."));
+            emit(const _Error(ConstString.noData));
           }
         } else {
           allMovie = await FirebaseCloudHelper.firebaseCloudHelper.getData();
           if (allMovie.isNotEmpty) {
             emit(_Success(allMovie));
           } else {
-            emit(const _Error(ConstString.errorMassage));
+            emit(const _Error(ConstString.noData));
           }
         }
       },

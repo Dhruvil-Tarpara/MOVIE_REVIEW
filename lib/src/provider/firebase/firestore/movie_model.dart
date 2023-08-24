@@ -7,27 +7,28 @@ Movie movieFromJson(String str) => Movie.fromJson(json.decode(str));
 String movieToJson(Movie data) => json.encode(data.toJson());
 
 class Movie {
-  final String userId;
-  final String movieId;
-  final String movieName;
-  final String category;
-  final String releaseDate;
-  final String releaseTime;
-  final String prodaction;
-  final String description;
-  final String image;
+  final String? userId;
+
+  final String? movieId;
+  final String? movieName;
+  final String? category;
+  final String? releaseDate;
+  final String? releaseTime;
+  final String? prodaction;
+  final String? description;
+  final String? image;
   final Map<String, dynamic>? rating;
 
   Movie({
-    required this.userId,
-    required this.movieId,
-    required this.movieName,
-    required this.category,
-    required this.releaseDate,
-    required this.releaseTime,
-    required this.prodaction,
-    required this.description,
-    required this.image,
+    this.userId,
+    this.movieId,
+    this.movieName,
+    this.category,
+    this.releaseDate,
+    this.releaseTime,
+    this.prodaction,
+    this.description,
+    this.image,
     this.rating,
   });
 
@@ -54,6 +55,7 @@ class Movie {
         prodaction: json["prodaction"],
         description: json["description"],
         image: json["image"],
+        rating: json["rating"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,28 +72,12 @@ class Movie {
       };
 }
 
-class Rating {
-  final User user;
-
-  Rating({
-    required this.user,
-  });
-
-  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
-        user: User.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "user": user.toJson(),
-      };
-}
-
 class User {
-  final int rating;
+  final double? rating;
   final String? riview;
 
   User({
-    required this.rating,
+    this.rating,
     this.riview,
   });
 

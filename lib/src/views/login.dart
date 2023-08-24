@@ -5,6 +5,8 @@ import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
 import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
+import 'package:movie_review/src/utils/hive/hive.dart';
+import 'package:movie_review/src/utils/hive/hive_key.dart';
 
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/utils/validetion.dart';
@@ -37,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-    cancelController();
+    _cancelController();
   }
 
   @override
@@ -48,17 +50,25 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
-            success: (loginSuccess) => (loginSuccess.user != null)
-                ? Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
-                    ),
-                  )
-                : ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(loginSuccess.error ?? ""),
-                    ),
+            success: (loginSuccess) {
+              if (loginSuccess.user != null) {
+                HiveHelper.hiveHelper.set(HiveKeys.login, true);
+                HiveHelper.hiveHelper
+                    .set(HiveKeys.user, loginSuccess.user!.toJson());
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
                   ),
+                );
+                _clearController();
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(loginSuccess.error ?? ""),
+                  ),
+                );
+              }
+            },
           );
         },
         child: ValueListenableBuilder(
@@ -174,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               )
               .then(
-                (value) => cancelController(),
+                (value) => _clearController(),
               );
         },
         buttonText: ConstString.noAccount,
@@ -183,12 +193,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void clearController() {
+  void _clearController() {
     _emailController.clear();
     _passwordController.clear();
   }
 
-  void cancelController() {
+  void _cancelController() {
     _emailController.dispose();
     _passwordController.dispose();
   }

@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/provider/firebase/firestore/movie_model.dart';
 
 class FirebaseCloudHelper {
@@ -22,27 +22,36 @@ class FirebaseCloudHelper {
     return snapshot.docs.map((e) => Movie.stream(e)).toList();
   }
 
-  void insertData({required Movie movie}) {
-    collectionReference.add(movie.toJson());
+  Future<void> insertData({required Movie movie}) async {
+   await collectionReference.doc(movie.movieId).set(movie.toJson());
   }
 
-  void upDateData({
-    required String doc,
-  }) {
-    collectionReference.doc(doc).update({});
+  Future<void> upDateData(
+      {required String doc, required Map<String, dynamic> data}) async {
+    await collectionReference.doc(doc).update(data);
   }
 
-  void deleteData({required String doc}) {
-    collectionReference.doc(doc).delete();
+  Future<void> deleteData({required String doc}) async {
+   await collectionReference.doc(doc).delete();
   }
 
-  Future<String?> uplodeImage({required String key,required File file}) async {
+  Future<String?> uplodeImage({required String key, required File file}) async {
     try {
-      await firebaseStorage.ref(key).putFile(file);
-      final url = await firebaseStorage.ref(key).getDownloadURL();
+      await firebaseStorage.ref("${Global.users.id}/$key").putFile(file);
+      final url =
+          await firebaseStorage.ref("${Global.users.id}/$key").getDownloadURL();
       return url;
     } on FirebaseException catch (_) {
       return null;
+    }
+  }
+
+  Future<bool> deleteImage({required String key}) async {
+    try {
+      await firebaseStorage.ref("${Global.users.id}/$key").delete();
+      return true;
+    } on FirebaseException catch (_) {
+      return false;
     }
   }
 }

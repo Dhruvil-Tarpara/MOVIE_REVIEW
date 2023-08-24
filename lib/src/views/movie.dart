@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_review/src/constant/colors.dart';
+import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/bottom_sheet.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
@@ -13,6 +13,7 @@ import 'package:movie_review/src/provider/bloc/bloc/opration_bloc.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/firebase_cloud.dart';
 import 'package:movie_review/src/provider/firebase/firestore/movie_model.dart';
+import 'package:movie_review/src/utils/extension/uuid.dart';
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/views/login/button.dart';
 
@@ -27,7 +28,6 @@ class _AddMovieState extends State<AddMovie> {
   final ValueNotifier<AutovalidateMode> _valueNotifier =
       ValueNotifier(AutovalidateMode.disabled);
   final GlobalKey<FormState> _movieKey = GlobalKey<FormState>();
-  final TextEditingController _imageController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -35,13 +35,14 @@ class _AddMovieState extends State<AddMovie> {
   final TextEditingController _prodactionController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final ImagePicker picker = ImagePicker();
-
   String? image;
+  String uuid = idGenerator();
 
   @override
   void initState() {
     super.initState();
     _valueNotifier.value = AutovalidateMode.disabled;
+    uuid = idGenerator();
   }
 
   @override
@@ -55,6 +56,7 @@ class _AddMovieState extends State<AddMovie> {
             context
                 .read<MovieDataBloc>()
                 .add(const MovieDataEvent.refreshData());
+            FirebaseCloudHelper.firebaseCloudHelper.deleteImage(key: uuid);
             Navigator.pop(context);
           },
           icon: Icon(
@@ -81,86 +83,73 @@ class _AddMovieState extends State<AddMovie> {
                   CircleAvatar(
                     radius: 62,
                     backgroundColor: ConstColor.primary2,
-                    child: CircleAvatar(
-                      radius: 58,
-                      backgroundImage:
-                          (image != null) ? NetworkImage(image!) : null,
-                      //backgroundColor: ConstColor.primary1,
-                    ),
+                    child: (image != null)
+                        ? CircleAvatar(
+                            radius: 58,
+                            backgroundImage: NetworkImage(image!),
+                          )
+                        : const CircleAvatar(
+                            radius: 58,
+                            backgroundImage: AssetImage(Global.uploadImage),
+                          ),
                   ),
                   TextButton(
                     onPressed: () {
-                      if (_nameController.text.isNotEmpty) {
-                        showModalBottomSheet<void>(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
+                      showModalBottomSheet<void>(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
                           ),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return FxBottomSheet(
-                              onPressedCamera: () async {
-                                image = await FirebaseCloudHelper
-                                    .firebaseCloudHelper
-                                    .uplodeImage(
-                                  file: await getImage(
-                                      source: ImageSource.camera),
-                                  key: _nameController.text,
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FxBottomSheet(
+                            onPressedCamera: () async {
+                              image = await FirebaseCloudHelper
+                                  .firebaseCloudHelper
+                                  .uplodeImage(
+                                file:
+                                    await getImage(source: ImageSource.camera),
+                                key: uuid,
+                              );
+                              if (image == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: FxText(
+                                      text: ConstString.errorMassage,
+                                      color: Colors.red,
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.white,
+                                  ),
                                 );
-                                if (_imageController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: FxText(
-                                        text: ConstString.errorMassage,
-                                        color: Colors.red,
-                                      ),
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.white,
+                              }
+                            },
+                            onPressedGallery: () async {
+                              image = await FirebaseCloudHelper
+                                  .firebaseCloudHelper
+                                  .uplodeImage(
+                                      file: await getImage(
+                                          source: ImageSource.gallery),
+                                      key: uuid);
+
+                              if (image == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: FxText(
+                                      text: ConstString.errorMassage,
+                                      color: Colors.red,
                                     ),
-                                  );
-                                }
-                              },
-                              onPressedGallery: () async {
-                                _imageController.text =
-                                    await FirebaseCloudHelper
-                                            .firebaseCloudHelper
-                                            .uplodeImage(
-                                          file: await getImage(
-                                              source: ImageSource.gallery),
-                                          key: _nameController.text,
-                                        ) ??
-                                        _imageController.text;
-                                Navigator.pop(context);
-                                if (_imageController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: FxText(
-                                        text: ConstString.errorMassage,
-                                        color: Colors.red,
-                                      ),
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: FxText(
-                              text: ConstString.movieNameError,
-                              color: Colors.red,
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.white,
-                          ),
-                        );
-                      }
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.white,
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        },
+                      );
                     },
                     child: FxText(
                       text: ConstString.movieImage,
@@ -365,26 +354,39 @@ class _AddMovieState extends State<AddMovie> {
               buttonText: ConstString.addMovie,
               onPressed: () {
                 _valueNotifier.value = AutovalidateMode.onUserInteraction;
-                if (_movieKey.currentState!.validate()) {
+                if (_movieKey.currentState!.validate() && image != null) {
                   context.read<OprationBloc>().add(
                         OprationEvent.addData(
                           Movie(
-                            userId: "",
-                            movieId: "",
+                            userId: Global.users.id,
+                            movieId: uuid,
                             movieName: _nameController.text,
                             category: _categoryController.text,
                             releaseDate: _dateController.text,
                             releaseTime: _timeController.text,
                             prodaction: _prodactionController.text,
                             description: _descriptionController.text,
-                            image: "",
-                            rating: {},
+                            image: image!,
+                            rating: {
+                              Global.users.id.toString(): User(
+                                rating: 0,
+                                riview: null,
+                              ).toJson(),
+                            },
                           ),
                         ),
                       );
                   context
                       .read<MovieDataBloc>()
                       .add(const MovieDataEvent.refreshData());
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: FxText(text: ConstString.movieImageError),
+                    ),
+                  );
+                  FirebaseCloudHelper.firebaseCloudHelper
+                      .deleteImage(key: uuid);
                 }
               },
             ),
