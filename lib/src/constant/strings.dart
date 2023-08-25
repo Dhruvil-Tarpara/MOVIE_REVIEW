@@ -67,4 +67,5 @@ class ConstString {
 
   static const String logout = "Log out ";
   static const String myJournal = "My Journal";
+  static const String allReview = "All Review and Rating";
 }

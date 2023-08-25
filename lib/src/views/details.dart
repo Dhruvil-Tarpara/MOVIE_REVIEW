@@ -216,7 +216,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     height: height(context: context) * 0.02,
                   ),
                   FxText(
-                    text: "All Review and Rating",
+                    text: ConstString.allReview,
                     size: 18,
                     color: ConstColor.black,
                     fontWeight: FontWeight.w500,
