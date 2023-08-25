@@ -34,7 +34,21 @@ class MovieDataBloc extends Bloc<MovieDataEvent, MovieDataState> {
             await Future.delayed(const Duration(milliseconds: 600));
             emit(const _Error(ConstString.noData));
           }
-        } else {
+        } 
+        else if (event is _SearchUser) {
+          emit(const _Loding());
+          List<Movie> data = allMovie
+              .where((element) => element.userId!.contains(event.value))
+              .toList();
+
+          if (data.isNotEmpty) {
+            emit(_Success(data));
+          } else {
+            emit(const _Loding());
+            await Future.delayed(const Duration(milliseconds: 600));
+            emit(const _Error(ConstString.noData));
+          }
+        }else {
           allMovie = await FirebaseCloudHelper.firebaseCloudHelper.getData();
           if (allMovie.isNotEmpty) {
             emit(_Success(allMovie));

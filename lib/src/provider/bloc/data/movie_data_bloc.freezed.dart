@@ -20,6 +20,7 @@ mixin _$MovieDataEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getData,
     required TResult Function(String value) searchData,
+    required TResult Function(String value) searchUser,
     required TResult Function() refreshData,
   }) =>
       throw _privateConstructorUsedError;
@@ -27,6 +28,7 @@ mixin _$MovieDataEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getData,
     TResult? Function(String value)? searchData,
+    TResult? Function(String value)? searchUser,
     TResult? Function()? refreshData,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,6 +36,7 @@ mixin _$MovieDataEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getData,
     TResult Function(String value)? searchData,
+    TResult Function(String value)? searchUser,
     TResult Function()? refreshData,
     required TResult orElse(),
   }) =>
@@ -42,6 +45,7 @@ mixin _$MovieDataEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetData value) getData,
     required TResult Function(_SearchData value) searchData,
+    required TResult Function(_SearchUser value) searchUser,
     required TResult Function(_RefreshData value) refreshData,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +53,7 @@ mixin _$MovieDataEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetData value)? getData,
     TResult? Function(_SearchData value)? searchData,
+    TResult? Function(_SearchUser value)? searchUser,
     TResult? Function(_RefreshData value)? refreshData,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +61,7 @@ mixin _$MovieDataEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetData value)? getData,
     TResult Function(_SearchData value)? searchData,
+    TResult Function(_SearchUser value)? searchUser,
     TResult Function(_RefreshData value)? refreshData,
     required TResult orElse(),
   }) =>
@@ -119,6 +125,7 @@ class _$_GetData implements _GetData {
   TResult when<TResult extends Object?>({
     required TResult Function() getData,
     required TResult Function(String value) searchData,
+    required TResult Function(String value) searchUser,
     required TResult Function() refreshData,
   }) {
     return getData();
@@ -129,6 +136,7 @@ class _$_GetData implements _GetData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getData,
     TResult? Function(String value)? searchData,
+    TResult? Function(String value)? searchUser,
     TResult? Function()? refreshData,
   }) {
     return getData?.call();
@@ -139,6 +147,7 @@ class _$_GetData implements _GetData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getData,
     TResult Function(String value)? searchData,
+    TResult Function(String value)? searchUser,
     TResult Function()? refreshData,
     required TResult orElse(),
   }) {
@@ -153,6 +162,7 @@ class _$_GetData implements _GetData {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetData value) getData,
     required TResult Function(_SearchData value) searchData,
+    required TResult Function(_SearchUser value) searchUser,
     required TResult Function(_RefreshData value) refreshData,
   }) {
     return getData(this);
@@ -163,6 +173,7 @@ class _$_GetData implements _GetData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetData value)? getData,
     TResult? Function(_SearchData value)? searchData,
+    TResult? Function(_SearchUser value)? searchUser,
     TResult? Function(_RefreshData value)? refreshData,
   }) {
     return getData?.call(this);
@@ -173,6 +184,7 @@ class _$_GetData implements _GetData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetData value)? getData,
     TResult Function(_SearchData value)? searchData,
+    TResult Function(_SearchUser value)? searchUser,
     TResult Function(_RefreshData value)? refreshData,
     required TResult orElse(),
   }) {
@@ -253,6 +265,7 @@ class _$_SearchData implements _SearchData {
   TResult when<TResult extends Object?>({
     required TResult Function() getData,
     required TResult Function(String value) searchData,
+    required TResult Function(String value) searchUser,
     required TResult Function() refreshData,
   }) {
     return searchData(value);
@@ -263,6 +276,7 @@ class _$_SearchData implements _SearchData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getData,
     TResult? Function(String value)? searchData,
+    TResult? Function(String value)? searchUser,
     TResult? Function()? refreshData,
   }) {
     return searchData?.call(value);
@@ -273,6 +287,7 @@ class _$_SearchData implements _SearchData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getData,
     TResult Function(String value)? searchData,
+    TResult Function(String value)? searchUser,
     TResult Function()? refreshData,
     required TResult orElse(),
   }) {
@@ -287,6 +302,7 @@ class _$_SearchData implements _SearchData {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetData value) getData,
     required TResult Function(_SearchData value) searchData,
+    required TResult Function(_SearchUser value) searchUser,
     required TResult Function(_RefreshData value) refreshData,
   }) {
     return searchData(this);
@@ -297,6 +313,7 @@ class _$_SearchData implements _SearchData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetData value)? getData,
     TResult? Function(_SearchData value)? searchData,
+    TResult? Function(_SearchUser value)? searchUser,
     TResult? Function(_RefreshData value)? refreshData,
   }) {
     return searchData?.call(this);
@@ -307,6 +324,7 @@ class _$_SearchData implements _SearchData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetData value)? getData,
     TResult Function(_SearchData value)? searchData,
+    TResult Function(_SearchUser value)? searchUser,
     TResult Function(_RefreshData value)? refreshData,
     required TResult orElse(),
   }) {
@@ -323,6 +341,151 @@ abstract class _SearchData implements MovieDataEvent {
   String get value;
   @JsonKey(ignore: true)
   _$$_SearchDataCopyWith<_$_SearchData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SearchUserCopyWith<$Res> {
+  factory _$$_SearchUserCopyWith(
+          _$_SearchUser value, $Res Function(_$_SearchUser) then) =
+      __$$_SearchUserCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$_SearchUserCopyWithImpl<$Res>
+    extends _$MovieDataEventCopyWithImpl<$Res, _$_SearchUser>
+    implements _$$_SearchUserCopyWith<$Res> {
+  __$$_SearchUserCopyWithImpl(
+      _$_SearchUser _value, $Res Function(_$_SearchUser) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$_SearchUser(
+      null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SearchUser implements _SearchUser {
+  const _$_SearchUser(this.value);
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'MovieDataEvent.searchUser(value: $value)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SearchUser &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SearchUserCopyWith<_$_SearchUser> get copyWith =>
+      __$$_SearchUserCopyWithImpl<_$_SearchUser>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getData,
+    required TResult Function(String value) searchData,
+    required TResult Function(String value) searchUser,
+    required TResult Function() refreshData,
+  }) {
+    return searchUser(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getData,
+    TResult? Function(String value)? searchData,
+    TResult? Function(String value)? searchUser,
+    TResult? Function()? refreshData,
+  }) {
+    return searchUser?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getData,
+    TResult Function(String value)? searchData,
+    TResult Function(String value)? searchUser,
+    TResult Function()? refreshData,
+    required TResult orElse(),
+  }) {
+    if (searchUser != null) {
+      return searchUser(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetData value) getData,
+    required TResult Function(_SearchData value) searchData,
+    required TResult Function(_SearchUser value) searchUser,
+    required TResult Function(_RefreshData value) refreshData,
+  }) {
+    return searchUser(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetData value)? getData,
+    TResult? Function(_SearchData value)? searchData,
+    TResult? Function(_SearchUser value)? searchUser,
+    TResult? Function(_RefreshData value)? refreshData,
+  }) {
+    return searchUser?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetData value)? getData,
+    TResult Function(_SearchData value)? searchData,
+    TResult Function(_SearchUser value)? searchUser,
+    TResult Function(_RefreshData value)? refreshData,
+    required TResult orElse(),
+  }) {
+    if (searchUser != null) {
+      return searchUser(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchUser implements MovieDataEvent {
+  const factory _SearchUser(final String value) = _$_SearchUser;
+
+  String get value;
+  @JsonKey(ignore: true)
+  _$$_SearchUserCopyWith<_$_SearchUser> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -366,6 +529,7 @@ class _$_RefreshData implements _RefreshData {
   TResult when<TResult extends Object?>({
     required TResult Function() getData,
     required TResult Function(String value) searchData,
+    required TResult Function(String value) searchUser,
     required TResult Function() refreshData,
   }) {
     return refreshData();
@@ -376,6 +540,7 @@ class _$_RefreshData implements _RefreshData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getData,
     TResult? Function(String value)? searchData,
+    TResult? Function(String value)? searchUser,
     TResult? Function()? refreshData,
   }) {
     return refreshData?.call();
@@ -386,6 +551,7 @@ class _$_RefreshData implements _RefreshData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getData,
     TResult Function(String value)? searchData,
+    TResult Function(String value)? searchUser,
     TResult Function()? refreshData,
     required TResult orElse(),
   }) {
@@ -400,6 +566,7 @@ class _$_RefreshData implements _RefreshData {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetData value) getData,
     required TResult Function(_SearchData value) searchData,
+    required TResult Function(_SearchUser value) searchUser,
     required TResult Function(_RefreshData value) refreshData,
   }) {
     return refreshData(this);
@@ -410,6 +577,7 @@ class _$_RefreshData implements _RefreshData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetData value)? getData,
     TResult? Function(_SearchData value)? searchData,
+    TResult? Function(_SearchUser value)? searchUser,
     TResult? Function(_RefreshData value)? refreshData,
   }) {
     return refreshData?.call(this);
@@ -420,6 +588,7 @@ class _$_RefreshData implements _RefreshData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetData value)? getData,
     TResult Function(_SearchData value)? searchData,
+    TResult Function(_SearchUser value)? searchUser,
     TResult Function(_RefreshData value)? refreshData,
     required TResult orElse(),
   }) {

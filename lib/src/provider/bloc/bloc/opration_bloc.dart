@@ -10,14 +10,32 @@ part 'opration_bloc.freezed.dart';
 class OprationBloc extends Bloc<OprationEvent, OprationState> {
   OprationBloc() : super(const _Initial()) {
     on<OprationEvent>(
-      (event, emit) {
+      (event, emit) async {
         if (event is _AddData) {
           try {
             FirebaseCloudHelper.firebaseCloudHelper
                 .insertData(movie: event.movie);
-            emit(const _Success(true));
+            emit(const _Fialed(false));
           } catch (_) {
-            emit(const _Success(false));
+            emit(const _Fialed(true));
+          }
+        } else if (event is _UpDate) {
+          try {
+            FirebaseCloudHelper.firebaseCloudHelper
+                .upDateData(docId: event.docId, data: event.movie);
+            Movie movie = await FirebaseCloudHelper.firebaseCloudHelper
+                .getMovie(docId: event.docId);
+            emit(_Success(movie));
+          } catch (_) {
+            emit(const _Fialed(true));
+          }
+        } else if (event is _GetData) {
+          try {
+            Movie movie = await FirebaseCloudHelper.firebaseCloudHelper
+                .getMovie(docId: event.docId);
+            emit(_Success(movie));
+          } catch (_) {
+            emit(const _Fialed(true));
           }
         }
       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_review/src/provider/bloc/bloc/opration_bloc.dart';
+import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/provider/firebase/firestore/firebase_cloud.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
@@ -39,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (context) => OprationBloc(),
         ),
+        BlocProvider(create: (context) => ObscureText(),)
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

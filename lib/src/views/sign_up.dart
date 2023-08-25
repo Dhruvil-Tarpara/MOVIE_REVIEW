@@ -141,6 +141,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FxTextFormField(
                     controller: _passwordController,
                     textInputType: TextInputType.text,
+                    obscureText: true,
+                    maxLine: 1,
                     labelText: FxText(
                       text: ConstString.password,
                       color: ConstColor.black,
@@ -163,6 +165,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FxTextFormField(
                     controller: _conformPasswordController,
                     textInputType: TextInputType.text,
+                    obscureText: true,
+                    maxLine: 1,
                     labelText: FxText(
                       text: ConstString.conformPassword,
                       color: ConstColor.black,

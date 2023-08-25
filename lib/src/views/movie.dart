@@ -336,15 +336,14 @@ class _AddMovieState extends State<AddMovie> {
       ),
       bottomNavigationBar: BlocListener<OprationBloc, OprationState>(
         listener: (context, state) {
-          state.mapOrNull(
-            success: (value) => (value.isSuccess)
-                ? Navigator.pop(context)
-                : ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: FxText(text: ConstString.errorMassage),
-                    ),
-                  ),
-          );
+          state.whenOrNull(
+              fialed: (value) => (value)
+                  ? ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: FxText(text: ConstString.errorMassage),
+                      ),
+                    )
+                  : Navigator.pop(context));
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),

@@ -16,42 +16,49 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OprationEvent {
-  Movie get movie => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) addData,
+    required TResult Function(Movie movie, String docId) upDate,
+    required TResult Function(String docId) getData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Movie movie)? addData,
+    TResult? Function(Movie movie, String docId)? upDate,
+    TResult? Function(String docId)? getData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? addData,
+    TResult Function(Movie movie, String docId)? upDate,
+    TResult Function(String docId)? getData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddData value) addData,
+    required TResult Function(_UpDate value) upDate,
+    required TResult Function(_GetData value) getData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddData value)? addData,
+    TResult? Function(_UpDate value)? upDate,
+    TResult? Function(_GetData value)? getData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddData value)? addData,
+    TResult Function(_UpDate value)? upDate,
+    TResult Function(_GetData value)? getData,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $OprationEventCopyWith<OprationEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +67,6 @@ abstract class $OprationEventCopyWith<$Res> {
   factory $OprationEventCopyWith(
           OprationEvent value, $Res Function(OprationEvent) then) =
       _$OprationEventCopyWithImpl<$Res, OprationEvent>;
-  @useResult
-  $Res call({Movie movie});
 }
 
 /// @nodoc
@@ -73,28 +78,13 @@ class _$OprationEventCopyWithImpl<$Res, $Val extends OprationEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? movie = null,
-  }) {
-    return _then(_value.copyWith(
-      movie: null == movie
-          ? _value.movie
-          : movie // ignore: cast_nullable_to_non_nullable
-              as Movie,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_AddDataCopyWith<$Res>
-    implements $OprationEventCopyWith<$Res> {
+abstract class _$$_AddDataCopyWith<$Res> {
   factory _$$_AddDataCopyWith(
           _$_AddData value, $Res Function(_$_AddData) then) =
       __$$_AddDataCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({Movie movie});
 }
@@ -154,6 +144,8 @@ class _$_AddData implements _AddData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) addData,
+    required TResult Function(Movie movie, String docId) upDate,
+    required TResult Function(String docId) getData,
   }) {
     return addData(movie);
   }
@@ -162,6 +154,8 @@ class _$_AddData implements _AddData {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Movie movie)? addData,
+    TResult? Function(Movie movie, String docId)? upDate,
+    TResult? Function(String docId)? getData,
   }) {
     return addData?.call(movie);
   }
@@ -170,6 +164,8 @@ class _$_AddData implements _AddData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? addData,
+    TResult Function(Movie movie, String docId)? upDate,
+    TResult Function(String docId)? getData,
     required TResult orElse(),
   }) {
     if (addData != null) {
@@ -182,6 +178,8 @@ class _$_AddData implements _AddData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddData value) addData,
+    required TResult Function(_UpDate value) upDate,
+    required TResult Function(_GetData value) getData,
   }) {
     return addData(this);
   }
@@ -190,6 +188,8 @@ class _$_AddData implements _AddData {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddData value)? addData,
+    TResult? Function(_UpDate value)? upDate,
+    TResult? Function(_GetData value)? getData,
   }) {
     return addData?.call(this);
   }
@@ -198,6 +198,8 @@ class _$_AddData implements _AddData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddData value)? addData,
+    TResult Function(_UpDate value)? upDate,
+    TResult Function(_GetData value)? getData,
     required TResult orElse(),
   }) {
     if (addData != null) {
@@ -210,11 +212,293 @@ class _$_AddData implements _AddData {
 abstract class _AddData implements OprationEvent {
   const factory _AddData(final Movie movie) = _$_AddData;
 
-  @override
   Movie get movie;
-  @override
   @JsonKey(ignore: true)
   _$$_AddDataCopyWith<_$_AddData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_UpDateCopyWith<$Res> {
+  factory _$$_UpDateCopyWith(_$_UpDate value, $Res Function(_$_UpDate) then) =
+      __$$_UpDateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Movie movie, String docId});
+}
+
+/// @nodoc
+class __$$_UpDateCopyWithImpl<$Res>
+    extends _$OprationEventCopyWithImpl<$Res, _$_UpDate>
+    implements _$$_UpDateCopyWith<$Res> {
+  __$$_UpDateCopyWithImpl(_$_UpDate _value, $Res Function(_$_UpDate) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? movie = null,
+    Object? docId = null,
+  }) {
+    return _then(_$_UpDate(
+      null == movie
+          ? _value.movie
+          : movie // ignore: cast_nullable_to_non_nullable
+              as Movie,
+      null == docId
+          ? _value.docId
+          : docId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UpDate implements _UpDate {
+  const _$_UpDate(this.movie, this.docId);
+
+  @override
+  final Movie movie;
+  @override
+  final String docId;
+
+  @override
+  String toString() {
+    return 'OprationEvent.upDate(movie: $movie, docId: $docId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UpDate &&
+            (identical(other.movie, movie) || other.movie == movie) &&
+            (identical(other.docId, docId) || other.docId == docId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, movie, docId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UpDateCopyWith<_$_UpDate> get copyWith =>
+      __$$_UpDateCopyWithImpl<_$_UpDate>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Movie movie) addData,
+    required TResult Function(Movie movie, String docId) upDate,
+    required TResult Function(String docId) getData,
+  }) {
+    return upDate(movie, docId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Movie movie)? addData,
+    TResult? Function(Movie movie, String docId)? upDate,
+    TResult? Function(String docId)? getData,
+  }) {
+    return upDate?.call(movie, docId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Movie movie)? addData,
+    TResult Function(Movie movie, String docId)? upDate,
+    TResult Function(String docId)? getData,
+    required TResult orElse(),
+  }) {
+    if (upDate != null) {
+      return upDate(movie, docId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddData value) addData,
+    required TResult Function(_UpDate value) upDate,
+    required TResult Function(_GetData value) getData,
+  }) {
+    return upDate(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddData value)? addData,
+    TResult? Function(_UpDate value)? upDate,
+    TResult? Function(_GetData value)? getData,
+  }) {
+    return upDate?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddData value)? addData,
+    TResult Function(_UpDate value)? upDate,
+    TResult Function(_GetData value)? getData,
+    required TResult orElse(),
+  }) {
+    if (upDate != null) {
+      return upDate(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpDate implements OprationEvent {
+  const factory _UpDate(final Movie movie, final String docId) = _$_UpDate;
+
+  Movie get movie;
+  String get docId;
+  @JsonKey(ignore: true)
+  _$$_UpDateCopyWith<_$_UpDate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GetDataCopyWith<$Res> {
+  factory _$$_GetDataCopyWith(
+          _$_GetData value, $Res Function(_$_GetData) then) =
+      __$$_GetDataCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String docId});
+}
+
+/// @nodoc
+class __$$_GetDataCopyWithImpl<$Res>
+    extends _$OprationEventCopyWithImpl<$Res, _$_GetData>
+    implements _$$_GetDataCopyWith<$Res> {
+  __$$_GetDataCopyWithImpl(_$_GetData _value, $Res Function(_$_GetData) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? docId = null,
+  }) {
+    return _then(_$_GetData(
+      null == docId
+          ? _value.docId
+          : docId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_GetData implements _GetData {
+  const _$_GetData(this.docId);
+
+  @override
+  final String docId;
+
+  @override
+  String toString() {
+    return 'OprationEvent.getData(docId: $docId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_GetData &&
+            (identical(other.docId, docId) || other.docId == docId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, docId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetDataCopyWith<_$_GetData> get copyWith =>
+      __$$_GetDataCopyWithImpl<_$_GetData>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Movie movie) addData,
+    required TResult Function(Movie movie, String docId) upDate,
+    required TResult Function(String docId) getData,
+  }) {
+    return getData(docId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Movie movie)? addData,
+    TResult? Function(Movie movie, String docId)? upDate,
+    TResult? Function(String docId)? getData,
+  }) {
+    return getData?.call(docId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Movie movie)? addData,
+    TResult Function(Movie movie, String docId)? upDate,
+    TResult Function(String docId)? getData,
+    required TResult orElse(),
+  }) {
+    if (getData != null) {
+      return getData(docId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddData value) addData,
+    required TResult Function(_UpDate value) upDate,
+    required TResult Function(_GetData value) getData,
+  }) {
+    return getData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddData value)? addData,
+    TResult? Function(_UpDate value)? upDate,
+    TResult? Function(_GetData value)? getData,
+  }) {
+    return getData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddData value)? addData,
+    TResult Function(_UpDate value)? upDate,
+    TResult Function(_GetData value)? getData,
+    required TResult orElse(),
+  }) {
+    if (getData != null) {
+      return getData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetData implements OprationEvent {
+  const factory _GetData(final String docId) = _$_GetData;
+
+  String get docId;
+  @JsonKey(ignore: true)
+  _$$_GetDataCopyWith<_$_GetData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -223,22 +507,22 @@ mixin _$OprationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isSuccess) success,
-    required TResult Function() fialed,
+    required TResult Function(Movie isSuccess) success,
+    required TResult Function(bool isfialed) fialed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isSuccess)? success,
-    TResult? Function()? fialed,
+    TResult? Function(Movie isSuccess)? success,
+    TResult? Function(bool isfialed)? fialed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isSuccess)? success,
-    TResult Function()? fialed,
+    TResult Function(Movie isSuccess)? success,
+    TResult Function(bool isfialed)? fialed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -322,8 +606,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isSuccess) success,
-    required TResult Function() fialed,
+    required TResult Function(Movie isSuccess) success,
+    required TResult Function(bool isfialed) fialed,
   }) {
     return initial();
   }
@@ -332,8 +616,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isSuccess)? success,
-    TResult? Function()? fialed,
+    TResult? Function(Movie isSuccess)? success,
+    TResult? Function(bool isfialed)? fialed,
   }) {
     return initial?.call();
   }
@@ -342,8 +626,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isSuccess)? success,
-    TResult Function()? fialed,
+    TResult Function(Movie isSuccess)? success,
+    TResult Function(bool isfialed)? fialed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -397,7 +681,7 @@ abstract class _$$_SuccessCopyWith<$Res> {
           _$_Success value, $Res Function(_$_Success) then) =
       __$$_SuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isSuccess});
+  $Res call({Movie isSuccess});
 }
 
 /// @nodoc
@@ -416,7 +700,7 @@ class __$$_SuccessCopyWithImpl<$Res>
       null == isSuccess
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as Movie,
     ));
   }
 }
@@ -427,7 +711,7 @@ class _$_Success implements _Success {
   const _$_Success(this.isSuccess);
 
   @override
-  final bool isSuccess;
+  final Movie isSuccess;
 
   @override
   String toString() {
@@ -456,8 +740,8 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isSuccess) success,
-    required TResult Function() fialed,
+    required TResult Function(Movie isSuccess) success,
+    required TResult Function(bool isfialed) fialed,
   }) {
     return success(isSuccess);
   }
@@ -466,8 +750,8 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isSuccess)? success,
-    TResult? Function()? fialed,
+    TResult? Function(Movie isSuccess)? success,
+    TResult? Function(bool isfialed)? fialed,
   }) {
     return success?.call(isSuccess);
   }
@@ -476,8 +760,8 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isSuccess)? success,
-    TResult Function()? fialed,
+    TResult Function(Movie isSuccess)? success,
+    TResult Function(bool isfialed)? fialed,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -522,9 +806,9 @@ class _$_Success implements _Success {
 }
 
 abstract class _Success implements OprationState {
-  const factory _Success(final bool isSuccess) = _$_Success;
+  const factory _Success(final Movie isSuccess) = _$_Success;
 
-  bool get isSuccess;
+  Movie get isSuccess;
   @JsonKey(ignore: true)
   _$$_SuccessCopyWith<_$_Success> get copyWith =>
       throw _privateConstructorUsedError;
@@ -534,6 +818,8 @@ abstract class _Success implements OprationState {
 abstract class _$$_FialedCopyWith<$Res> {
   factory _$$_FialedCopyWith(_$_Fialed value, $Res Function(_$_Fialed) then) =
       __$$_FialedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isfialed});
 }
 
 /// @nodoc
@@ -542,57 +828,82 @@ class __$$_FialedCopyWithImpl<$Res>
     implements _$$_FialedCopyWith<$Res> {
   __$$_FialedCopyWithImpl(_$_Fialed _value, $Res Function(_$_Fialed) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isfialed = null,
+  }) {
+    return _then(_$_Fialed(
+      null == isfialed
+          ? _value.isfialed
+          : isfialed // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Fialed implements _Fialed {
-  const _$_Fialed();
+  const _$_Fialed(this.isfialed);
+
+  @override
+  final bool isfialed;
 
   @override
   String toString() {
-    return 'OprationState.fialed()';
+    return 'OprationState.fialed(isfialed: $isfialed)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_Fialed);
+        (other.runtimeType == runtimeType &&
+            other is _$_Fialed &&
+            (identical(other.isfialed, isfialed) ||
+                other.isfialed == isfialed));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isfialed);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FialedCopyWith<_$_Fialed> get copyWith =>
+      __$$_FialedCopyWithImpl<_$_Fialed>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(bool isSuccess) success,
-    required TResult Function() fialed,
+    required TResult Function(Movie isSuccess) success,
+    required TResult Function(bool isfialed) fialed,
   }) {
-    return fialed();
+    return fialed(isfialed);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(bool isSuccess)? success,
-    TResult? Function()? fialed,
+    TResult? Function(Movie isSuccess)? success,
+    TResult? Function(bool isfialed)? fialed,
   }) {
-    return fialed?.call();
+    return fialed?.call(isfialed);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(bool isSuccess)? success,
-    TResult Function()? fialed,
+    TResult Function(Movie isSuccess)? success,
+    TResult Function(bool isfialed)? fialed,
     required TResult orElse(),
   }) {
     if (fialed != null) {
-      return fialed();
+      return fialed(isfialed);
     }
     return orElse();
   }
@@ -633,5 +944,10 @@ class _$_Fialed implements _Fialed {
 }
 
 abstract class _Fialed implements OprationState {
-  const factory _Fialed() = _$_Fialed;
+  const factory _Fialed(final bool isfialed) = _$_Fialed;
+
+  bool get isfialed;
+  @JsonKey(ignore: true)
+  _$$_FialedCopyWith<_$_Fialed> get copyWith =>
+      throw _privateConstructorUsedError;
 }

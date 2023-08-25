@@ -22,17 +22,21 @@ class FirebaseCloudHelper {
     return snapshot.docs.map((e) => Movie.stream(e)).toList();
   }
 
-  Future<void> insertData({required Movie movie}) async {
-   await collectionReference.doc(movie.movieId).set(movie.toJson());
+  Future getMovie({required String docId}) async {
+   DocumentSnapshot<Object?> snapshot = await collectionReference.doc(docId).get();
+    return Movie.fromFirestore(snapshot);
   }
 
-  Future<void> upDateData(
-      {required String doc, required Map<String, dynamic> data}) async {
-    await collectionReference.doc(doc).update(data);
+  Future<void> insertData({required Movie movie}) async {
+    await collectionReference.doc(movie.movieId).set(movie.toJson());
+  }
+
+  Future<void> upDateData({required String docId, required Movie data}) async {
+    await collectionReference.doc(docId).update(data.toJson());
   }
 
   Future<void> deleteData({required String doc}) async {
-   await collectionReference.doc(doc).delete();
+    await collectionReference.doc(doc).delete();
   }
 
   Future<String?> uplodeImage({required String key, required File file}) async {

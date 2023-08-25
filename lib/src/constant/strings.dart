@@ -63,4 +63,7 @@ class ConstString {
   static const String noData = "Data not founed....";
   static const String riview = "riview";
   static const String ratingKey = "rating";
+
+  static const String logout = "Log out ";
+  static const String myJournal = "My Journal";
 }

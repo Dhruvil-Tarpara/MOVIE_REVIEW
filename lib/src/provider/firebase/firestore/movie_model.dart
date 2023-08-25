@@ -8,7 +8,6 @@ String movieToJson(Movie data) => json.encode(data.toJson());
 
 class Movie {
   final String? userId;
-
   final String? movieId;
   final String? movieName;
   final String? category;
@@ -57,6 +56,23 @@ class Movie {
         image: json["image"],
         rating: json["rating"],
       );
+  factory Movie.fromFirestore(
+    DocumentSnapshot<Object?> snapshot,
+  ) {
+    final json = snapshot;
+    return Movie(
+      userId: json["userId"],
+      movieId: json["movieId"],
+      movieName: json["movieName"],
+      category: json["category"],
+      releaseDate: json["releaseDate"],
+      releaseTime: json["releaseTime"],
+      prodaction: json["prodaction"],
+      description: json["description"],
+      image: json["image"],
+      rating: json["rating"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "userId": userId,

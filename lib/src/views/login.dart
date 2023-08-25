@@ -5,6 +5,7 @@ import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
 import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
+import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
 
@@ -127,6 +128,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: ConstString.password,
                       color: ConstColor.black,
                       size: 14,
+                    ),
+                    obscureText: context.watch<ObscureText>().state,
+                    maxLine: 1,
+                    suffix: IconButton(
+                      focusColor: Colors.transparent,
+                      disabledColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onPressed: () {
+                        context.read<ObscureText>().upDateObscureText();
+                      },
+                      icon: context.watch<ObscureText>().state
+                          ? Icon(
+                              Icons.visibility_off,
+                              color: ConstColor.grey,
+                            )
+                          : Icon(
+                              Icons.visibility,
+                              color: ConstColor.primary2,
+                            ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_review/src/constant/colors.dart';
 import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
+import 'package:movie_review/src/provider/bloc/bloc/opration_bloc.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
-import 'package:movie_review/src/provider/firebase/auth/auth.dart';
 import 'package:movie_review/src/provider/firebase/auth/model.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/views/details.dart';
-import 'package:movie_review/src/views/login.dart';
+import 'package:movie_review/src/views/drawer.dart';
 import 'package:movie_review/src/views/movie.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -55,22 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
           color: ConstColor.black,
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              FirebaseAuthHelper.firebaseAuthHelper.firebaseAuth.signOut();
-              HiveHelper.hiveHelper.set(HiveKeys.login, false);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.logout,
-              color: ConstColor.primary2,
-            ),
-          ),
           (Global.users.url != null)
               ? CircleAvatar(
                   backgroundImage: NetworkImage(Global.users.url ?? ""),
@@ -80,14 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
           const SizedBox(
             width: 10,
-          )
+          ),
         ],
       ),
-      drawer: const Drawer(
-        child: Column(
-          children: [],
-        ),
-      ),
+      drawer: FxDrawer(drawerKey: _key),
       body: RefreshIndicator(
         onRefresh: () {
           context.read<MovieDataBloc>().add(const MovieDataEvent.refreshData());
@@ -95,17 +76,21 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
-              FxTextFormField(
-                textInputType: TextInputType.text,
-                onChanged: (value) {
-                  context
-                      .read<MovieDataBloc>()
-                      .add(MovieDataEvent.searchData(value));
-                },
-                hintText: ConstString.search,
-                prefix: const Icon(Icons.search),
+              SizedBox(
+                height: height(context: context) * 0.06,
+                child: FxTextFormField(
+                  textInputType: TextInputType.text,
+                  onChanged: (value) {
+                    context
+                        .read<MovieDataBloc>()
+                        .add(MovieDataEvent.searchData(value));
+                  },
+                  hintText: ConstString.search,
+                  prefix: const Icon(Icons.search),
+                ),
               ),
               SizedBox(
                 height: height(context: context) * 0.02,
@@ -120,17 +105,72 @@ class _HomeScreenState extends State<HomeScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
-                    itemBuilder: (context, index) => ListTile(
+                    itemBuilder: (context, index) => InkWell(
                       onTap: () {
+                        context.read<OprationBloc>().add(OprationEvent.getData(
+                            data[index].movieId.toString()));
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                DetailScreen(movie: data[index],),
+                            builder: (context) => DetailScreen(
+                              movie: data[index],
+                            ),
                           ),
                         );
                       },
-                      title: FxText(text: data[index].movieName ?? ""),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 4,
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          alignment: Alignment.bottomLeft,
+                          height: height(context: context) * 0.24,
+                          width: width(context: context),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                color: ConstColor.primary2, width: 2),
+                            image: DecorationImage(
+                              image: NetworkImage(data[index].image!),
+                              fit: BoxFit.cover,
+                              opacity: 0.8,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              FxText(
+                                text: data[index].movieName!,
+                                size: 22,
+                                color: ConstColor.black,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              FxText(
+                                text: data[index].category!,
+                                size: 14,
+                                color: ConstColor.black,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              RatingBar.builder(
+                                initialRating: 5,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 20,
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: ConstColor.primary2,
+                                  size: 18,
+                                ),
+                                onRatingUpdate: (double value) {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   error: (massage) => Center(
