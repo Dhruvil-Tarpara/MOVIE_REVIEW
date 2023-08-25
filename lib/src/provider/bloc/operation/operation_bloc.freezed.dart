@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'opration_bloc.dart';
+part of 'operation_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$OprationEvent {
+mixin _$OperationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) addData,
@@ -63,16 +63,16 @@ mixin _$OprationEvent {
 }
 
 /// @nodoc
-abstract class $OprationEventCopyWith<$Res> {
-  factory $OprationEventCopyWith(
-          OprationEvent value, $Res Function(OprationEvent) then) =
-      _$OprationEventCopyWithImpl<$Res, OprationEvent>;
+abstract class $OperationEventCopyWith<$Res> {
+  factory $OperationEventCopyWith(
+          OperationEvent value, $Res Function(OperationEvent) then) =
+      _$OperationEventCopyWithImpl<$Res, OperationEvent>;
 }
 
 /// @nodoc
-class _$OprationEventCopyWithImpl<$Res, $Val extends OprationEvent>
-    implements $OprationEventCopyWith<$Res> {
-  _$OprationEventCopyWithImpl(this._value, this._then);
+class _$OperationEventCopyWithImpl<$Res, $Val extends OperationEvent>
+    implements $OperationEventCopyWith<$Res> {
+  _$OperationEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -91,7 +91,7 @@ abstract class _$$_AddDataCopyWith<$Res> {
 
 /// @nodoc
 class __$$_AddDataCopyWithImpl<$Res>
-    extends _$OprationEventCopyWithImpl<$Res, _$_AddData>
+    extends _$OperationEventCopyWithImpl<$Res, _$_AddData>
     implements _$$_AddDataCopyWith<$Res> {
   __$$_AddDataCopyWithImpl(_$_AddData _value, $Res Function(_$_AddData) _then)
       : super(_value, _then);
@@ -99,10 +99,10 @@ class __$$_AddDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? movie = null,
+    Object? movie = freezed,
   }) {
     return _then(_$_AddData(
-      null == movie
+      freezed == movie
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
@@ -120,7 +120,7 @@ class _$_AddData implements _AddData {
 
   @override
   String toString() {
-    return 'OprationEvent.addData(movie: $movie)';
+    return 'OperationEvent.addData(movie: $movie)';
   }
 
   @override
@@ -128,11 +128,12 @@ class _$_AddData implements _AddData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddData &&
-            (identical(other.movie, movie) || other.movie == movie));
+            const DeepCollectionEquality().equals(other.movie, movie));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, movie);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(movie));
 
   @JsonKey(ignore: true)
   @override
@@ -209,7 +210,7 @@ class _$_AddData implements _AddData {
   }
 }
 
-abstract class _AddData implements OprationEvent {
+abstract class _AddData implements OperationEvent {
   const factory _AddData(final Movie movie) = _$_AddData;
 
   Movie get movie;
@@ -228,7 +229,7 @@ abstract class _$$_UpDateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_UpDateCopyWithImpl<$Res>
-    extends _$OprationEventCopyWithImpl<$Res, _$_UpDate>
+    extends _$OperationEventCopyWithImpl<$Res, _$_UpDate>
     implements _$$_UpDateCopyWith<$Res> {
   __$$_UpDateCopyWithImpl(_$_UpDate _value, $Res Function(_$_UpDate) _then)
       : super(_value, _then);
@@ -236,11 +237,11 @@ class __$$_UpDateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? movie = null,
+    Object? movie = freezed,
     Object? docId = null,
   }) {
     return _then(_$_UpDate(
-      null == movie
+      freezed == movie
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
@@ -264,7 +265,7 @@ class _$_UpDate implements _UpDate {
 
   @override
   String toString() {
-    return 'OprationEvent.upDate(movie: $movie, docId: $docId)';
+    return 'OperationEvent.upDate(movie: $movie, docId: $docId)';
   }
 
   @override
@@ -272,12 +273,13 @@ class _$_UpDate implements _UpDate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpDate &&
-            (identical(other.movie, movie) || other.movie == movie) &&
+            const DeepCollectionEquality().equals(other.movie, movie) &&
             (identical(other.docId, docId) || other.docId == docId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, movie, docId);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(movie), docId);
 
   @JsonKey(ignore: true)
   @override
@@ -354,7 +356,7 @@ class _$_UpDate implements _UpDate {
   }
 }
 
-abstract class _UpDate implements OprationEvent {
+abstract class _UpDate implements OperationEvent {
   const factory _UpDate(final Movie movie, final String docId) = _$_UpDate;
 
   Movie get movie;
@@ -375,7 +377,7 @@ abstract class _$$_GetDataCopyWith<$Res> {
 
 /// @nodoc
 class __$$_GetDataCopyWithImpl<$Res>
-    extends _$OprationEventCopyWithImpl<$Res, _$_GetData>
+    extends _$OperationEventCopyWithImpl<$Res, _$_GetData>
     implements _$$_GetDataCopyWith<$Res> {
   __$$_GetDataCopyWithImpl(_$_GetData _value, $Res Function(_$_GetData) _then)
       : super(_value, _then);
@@ -404,7 +406,7 @@ class _$_GetData implements _GetData {
 
   @override
   String toString() {
-    return 'OprationEvent.getData(docId: $docId)';
+    return 'OperationEvent.getData(docId: $docId)';
   }
 
   @override
@@ -493,7 +495,7 @@ class _$_GetData implements _GetData {
   }
 }
 
-abstract class _GetData implements OprationEvent {
+abstract class _GetData implements OperationEvent {
   const factory _GetData(final String docId) = _$_GetData;
 
   String get docId;
@@ -503,7 +505,7 @@ abstract class _GetData implements OprationEvent {
 }
 
 /// @nodoc
-mixin _$OprationState {
+mixin _$OperationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -551,16 +553,16 @@ mixin _$OprationState {
 }
 
 /// @nodoc
-abstract class $OprationStateCopyWith<$Res> {
-  factory $OprationStateCopyWith(
-          OprationState value, $Res Function(OprationState) then) =
-      _$OprationStateCopyWithImpl<$Res, OprationState>;
+abstract class $OperationStateCopyWith<$Res> {
+  factory $OperationStateCopyWith(
+          OperationState value, $Res Function(OperationState) then) =
+      _$OperationStateCopyWithImpl<$Res, OperationState>;
 }
 
 /// @nodoc
-class _$OprationStateCopyWithImpl<$Res, $Val extends OprationState>
-    implements $OprationStateCopyWith<$Res> {
-  _$OprationStateCopyWithImpl(this._value, this._then);
+class _$OperationStateCopyWithImpl<$Res, $Val extends OperationState>
+    implements $OperationStateCopyWith<$Res> {
+  _$OperationStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -577,7 +579,7 @@ abstract class _$$_InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$OprationStateCopyWithImpl<$Res, _$_Initial>
+    extends _$OperationStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -590,7 +592,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'OprationState.initial()';
+    return 'OperationState.initial()';
   }
 
   @override
@@ -671,7 +673,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements OprationState {
+abstract class _Initial implements OperationState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -686,7 +688,7 @@ abstract class _$$_SuccessCopyWith<$Res> {
 
 /// @nodoc
 class __$$_SuccessCopyWithImpl<$Res>
-    extends _$OprationStateCopyWithImpl<$Res, _$_Success>
+    extends _$OperationStateCopyWithImpl<$Res, _$_Success>
     implements _$$_SuccessCopyWith<$Res> {
   __$$_SuccessCopyWithImpl(_$_Success _value, $Res Function(_$_Success) _then)
       : super(_value, _then);
@@ -694,10 +696,10 @@ class __$$_SuccessCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isSuccess = null,
+    Object? isSuccess = freezed,
   }) {
     return _then(_$_Success(
-      null == isSuccess
+      freezed == isSuccess
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
               as Movie,
@@ -715,7 +717,7 @@ class _$_Success implements _Success {
 
   @override
   String toString() {
-    return 'OprationState.success(isSuccess: $isSuccess)';
+    return 'OperationState.success(isSuccess: $isSuccess)';
   }
 
   @override
@@ -723,12 +725,12 @@ class _$_Success implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Success &&
-            (identical(other.isSuccess, isSuccess) ||
-                other.isSuccess == isSuccess));
+            const DeepCollectionEquality().equals(other.isSuccess, isSuccess));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isSuccess);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(isSuccess));
 
   @JsonKey(ignore: true)
   @override
@@ -805,7 +807,7 @@ class _$_Success implements _Success {
   }
 }
 
-abstract class _Success implements OprationState {
+abstract class _Success implements OperationState {
   const factory _Success(final Movie isSuccess) = _$_Success;
 
   Movie get isSuccess;
@@ -824,7 +826,7 @@ abstract class _$$_FialedCopyWith<$Res> {
 
 /// @nodoc
 class __$$_FialedCopyWithImpl<$Res>
-    extends _$OprationStateCopyWithImpl<$Res, _$_Fialed>
+    extends _$OperationStateCopyWithImpl<$Res, _$_Fialed>
     implements _$$_FialedCopyWith<$Res> {
   __$$_FialedCopyWithImpl(_$_Fialed _value, $Res Function(_$_Fialed) _then)
       : super(_value, _then);
@@ -853,7 +855,7 @@ class _$_Fialed implements _Fialed {
 
   @override
   String toString() {
-    return 'OprationState.fialed(isfialed: $isfialed)';
+    return 'OperationState.fialed(isfialed: $isfialed)';
   }
 
   @override
@@ -943,7 +945,7 @@ class _$_Fialed implements _Fialed {
   }
 }
 
-abstract class _Fialed implements OprationState {
+abstract class _Fialed implements OperationState {
   const factory _Fialed(final bool isfialed) = _$_Fialed;
 
   bool get isfialed;

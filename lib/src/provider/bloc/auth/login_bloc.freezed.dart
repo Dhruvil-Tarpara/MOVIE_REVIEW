@@ -16,24 +16,25 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginEvent {
-  String get email => throw _privateConstructorUsedError;
-  dynamic get password => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, dynamic password) loginData,
     required TResult Function(String email, dynamic password) signUpData,
+    required TResult Function() googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, dynamic password)? loginData,
     TResult? Function(String email, dynamic password)? signUpData,
+    TResult? Function()? googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, dynamic password)? loginData,
     TResult Function(String email, dynamic password)? signUpData,
+    TResult Function()? googleLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -41,24 +42,23 @@ mixin _$LoginEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginData value) loginData,
     required TResult Function(_SignUpData value) signUpData,
+    required TResult Function(_GoogleLogin value) googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginData value)? loginData,
     TResult? Function(_SignUpData value)? signUpData,
+    TResult? Function(_GoogleLogin value)? googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginData value)? loginData,
     TResult Function(_SignUpData value)? signUpData,
+    TResult Function(_GoogleLogin value)? googleLogin,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $LoginEventCopyWith<LoginEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -67,8 +67,6 @@ abstract class $LoginEventCopyWith<$Res> {
   factory $LoginEventCopyWith(
           LoginEvent value, $Res Function(LoginEvent) then) =
       _$LoginEventCopyWithImpl<$Res, LoginEvent>;
-  @useResult
-  $Res call({String email, dynamic password});
 }
 
 /// @nodoc
@@ -80,33 +78,13 @@ class _$LoginEventCopyWithImpl<$Res, $Val extends LoginEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = freezed,
-  }) {
-    return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_LoginDataCopyWith<$Res>
-    implements $LoginEventCopyWith<$Res> {
+abstract class _$$_LoginDataCopyWith<$Res> {
   factory _$$_LoginDataCopyWith(
           _$_LoginData value, $Res Function(_$_LoginData) then) =
       __$$_LoginDataCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String email, dynamic password});
 }
@@ -174,6 +152,7 @@ class _$_LoginData implements _LoginData {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, dynamic password) loginData,
     required TResult Function(String email, dynamic password) signUpData,
+    required TResult Function() googleLogin,
   }) {
     return loginData(email, password);
   }
@@ -183,6 +162,7 @@ class _$_LoginData implements _LoginData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, dynamic password)? loginData,
     TResult? Function(String email, dynamic password)? signUpData,
+    TResult? Function()? googleLogin,
   }) {
     return loginData?.call(email, password);
   }
@@ -192,6 +172,7 @@ class _$_LoginData implements _LoginData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, dynamic password)? loginData,
     TResult Function(String email, dynamic password)? signUpData,
+    TResult Function()? googleLogin,
     required TResult orElse(),
   }) {
     if (loginData != null) {
@@ -205,6 +186,7 @@ class _$_LoginData implements _LoginData {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginData value) loginData,
     required TResult Function(_SignUpData value) signUpData,
+    required TResult Function(_GoogleLogin value) googleLogin,
   }) {
     return loginData(this);
   }
@@ -214,6 +196,7 @@ class _$_LoginData implements _LoginData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginData value)? loginData,
     TResult? Function(_SignUpData value)? signUpData,
+    TResult? Function(_GoogleLogin value)? googleLogin,
   }) {
     return loginData?.call(this);
   }
@@ -223,6 +206,7 @@ class _$_LoginData implements _LoginData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginData value)? loginData,
     TResult Function(_SignUpData value)? signUpData,
+    TResult Function(_GoogleLogin value)? googleLogin,
     required TResult orElse(),
   }) {
     if (loginData != null) {
@@ -236,23 +220,18 @@ abstract class _LoginData implements LoginEvent {
   const factory _LoginData(final String email, final dynamic password) =
       _$_LoginData;
 
-  @override
   String get email;
-  @override
   dynamic get password;
-  @override
   @JsonKey(ignore: true)
   _$$_LoginDataCopyWith<_$_LoginData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_SignUpDataCopyWith<$Res>
-    implements $LoginEventCopyWith<$Res> {
+abstract class _$$_SignUpDataCopyWith<$Res> {
   factory _$$_SignUpDataCopyWith(
           _$_SignUpData value, $Res Function(_$_SignUpData) then) =
       __$$_SignUpDataCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String email, dynamic password});
 }
@@ -320,6 +299,7 @@ class _$_SignUpData implements _SignUpData {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, dynamic password) loginData,
     required TResult Function(String email, dynamic password) signUpData,
+    required TResult Function() googleLogin,
   }) {
     return signUpData(email, password);
   }
@@ -329,6 +309,7 @@ class _$_SignUpData implements _SignUpData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, dynamic password)? loginData,
     TResult? Function(String email, dynamic password)? signUpData,
+    TResult? Function()? googleLogin,
   }) {
     return signUpData?.call(email, password);
   }
@@ -338,6 +319,7 @@ class _$_SignUpData implements _SignUpData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, dynamic password)? loginData,
     TResult Function(String email, dynamic password)? signUpData,
+    TResult Function()? googleLogin,
     required TResult orElse(),
   }) {
     if (signUpData != null) {
@@ -351,6 +333,7 @@ class _$_SignUpData implements _SignUpData {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginData value) loginData,
     required TResult Function(_SignUpData value) signUpData,
+    required TResult Function(_GoogleLogin value) googleLogin,
   }) {
     return signUpData(this);
   }
@@ -360,6 +343,7 @@ class _$_SignUpData implements _SignUpData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginData value)? loginData,
     TResult? Function(_SignUpData value)? signUpData,
+    TResult? Function(_GoogleLogin value)? googleLogin,
   }) {
     return signUpData?.call(this);
   }
@@ -369,6 +353,7 @@ class _$_SignUpData implements _SignUpData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginData value)? loginData,
     TResult Function(_SignUpData value)? signUpData,
+    TResult Function(_GoogleLogin value)? googleLogin,
     required TResult orElse(),
   }) {
     if (signUpData != null) {
@@ -382,14 +367,119 @@ abstract class _SignUpData implements LoginEvent {
   const factory _SignUpData(final String email, final dynamic password) =
       _$_SignUpData;
 
-  @override
   String get email;
-  @override
   dynamic get password;
-  @override
   @JsonKey(ignore: true)
   _$$_SignUpDataCopyWith<_$_SignUpData> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_GoogleLoginCopyWith<$Res> {
+  factory _$$_GoogleLoginCopyWith(
+          _$_GoogleLogin value, $Res Function(_$_GoogleLogin) then) =
+      __$$_GoogleLoginCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GoogleLoginCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res, _$_GoogleLogin>
+    implements _$$_GoogleLoginCopyWith<$Res> {
+  __$$_GoogleLoginCopyWithImpl(
+      _$_GoogleLogin _value, $Res Function(_$_GoogleLogin) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GoogleLogin implements _GoogleLogin {
+  const _$_GoogleLogin();
+
+  @override
+  String toString() {
+    return 'LoginEvent.googleLogin()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GoogleLogin);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, dynamic password) loginData,
+    required TResult Function(String email, dynamic password) signUpData,
+    required TResult Function() googleLogin,
+  }) {
+    return googleLogin();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, dynamic password)? loginData,
+    TResult? Function(String email, dynamic password)? signUpData,
+    TResult? Function()? googleLogin,
+  }) {
+    return googleLogin?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, dynamic password)? loginData,
+    TResult Function(String email, dynamic password)? signUpData,
+    TResult Function()? googleLogin,
+    required TResult orElse(),
+  }) {
+    if (googleLogin != null) {
+      return googleLogin();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoginData value) loginData,
+    required TResult Function(_SignUpData value) signUpData,
+    required TResult Function(_GoogleLogin value) googleLogin,
+  }) {
+    return googleLogin(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoginData value)? loginData,
+    TResult? Function(_SignUpData value)? signUpData,
+    TResult? Function(_GoogleLogin value)? googleLogin,
+  }) {
+    return googleLogin?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoginData value)? loginData,
+    TResult Function(_SignUpData value)? signUpData,
+    TResult Function(_GoogleLogin value)? googleLogin,
+    required TResult orElse(),
+  }) {
+    if (googleLogin != null) {
+      return googleLogin(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GoogleLogin implements LoginEvent {
+  const factory _GoogleLogin() = _$_GoogleLogin;
 }
 
 /// @nodoc

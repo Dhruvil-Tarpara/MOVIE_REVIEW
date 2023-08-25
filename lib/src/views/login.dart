@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_review/src/constant/colors.dart';
+import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
@@ -65,7 +66,12 @@ class _LoginScreenState extends State<LoginScreen> {
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(loginSuccess.error ?? ""),
+                    content: FxText(
+                      text: loginSuccess.error ?? "",
+                      color: Colors.red,
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.white,
                   ),
                 );
               }
@@ -187,6 +193,54 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: ConstString.forgotPassword,
                       size: 12,
                       color: ConstColor.primary2,
+                    ),
+                  ),
+                  SizedBox(
+                    height: height(context: context) * 0.04,
+                  ),
+                  SizedBox(
+                    width: width(context: context),
+                    height: height(context: context) * 0.068,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        context.read<LoginBloc>().add(
+                              const LoginEvent.googleLogin(),
+                            );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(ConstColor.white),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        side: MaterialStatePropertyAll(
+                          BorderSide(
+                            color: ConstColor.black,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16),
+                            child: Image(
+                              image: AssetImage(Global.googleLogo),
+                            ),
+                          ),
+                          SizedBox(
+                            width: width(context: context) * 0.04,
+                          ),
+                          FxText(
+                            text: ConstString.googleLogin,
+                            size: 16,
+                            color: ConstColor.black,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

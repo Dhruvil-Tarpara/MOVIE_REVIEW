@@ -9,4 +9,3 @@ extension DubouleExtension on String {
     return double.tryParse(this) ?? 0.0;
   }
 }
-

@@ -13,7 +13,10 @@ import 'package:movie_review/src/views/login.dart';
 
 class FxDrawer extends StatelessWidget {
   final GlobalKey<ScaffoldState> drawerKey;
-  const FxDrawer({super.key, required this.drawerKey, });
+  const FxDrawer({
+    super.key,
+    required this.drawerKey,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,7 @@ class FxDrawer extends StatelessWidget {
                           Global.users.id.toString(),
                         ),
                       );
-              drawerKey.currentState!.closeDrawer();
+                  drawerKey.currentState!.closeDrawer();
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(

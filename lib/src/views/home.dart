@@ -1,13 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_review/src/constant/colors.dart';
 import 'package:movie_review/src/constant/global.dart';
-import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
-import 'package:movie_review/src/constant/widgets/text_form_field.dart';
-import 'package:movie_review/src/provider/bloc/bloc/opration_bloc.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
+import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/auth/model.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
@@ -81,15 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               SizedBox(
                 height: height(context: context) * 0.06,
-                child: FxTextFormField(
-                  textInputType: TextInputType.text,
+                child: CupertinoSearchTextField(
+                  backgroundColor: ConstColor.primary3,
                   onChanged: (value) {
-                    context
-                        .read<MovieDataBloc>()
-                        .add(MovieDataEvent.searchData(value));
+                    context.read<MovieDataBloc>().add(
+                          MovieDataEvent.searchData(value),
+                        );
                   },
-                  hintText: ConstString.search,
-                  prefix: const Icon(Icons.search),
                 ),
               ),
               SizedBox(
@@ -107,8 +104,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: data.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
-                        context.read<OprationBloc>().add(OprationEvent.getData(
-                            data[index].movieId.toString()));
+                        context.read<OperationBloc>().add(
+                              OperationEvent.getData(
+                                data[index].movieId.toString(),
+                              ),
+                            );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -138,36 +138,44 @@ class _HomeScreenState extends State<HomeScreen> {
                               opacity: 0.8,
                             ),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              FxText(
-                                text: data[index].movieName!,
-                                size: 22,
-                                color: ConstColor.black,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              FxText(
-                                text: data[index].category!,
-                                size: 14,
-                                color: ConstColor.black,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              RatingBar.builder(
-                                initialRating: 5,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemSize: 20,
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: ConstColor.primary2,
-                                  size: 18,
+                          child: Container(
+                            height: height(context: context) * 0.13,
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: ConstColor.white.withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                FxText(
+                                  text: data[index].movieName!,
+                                  size: 22,
+                                  color: ConstColor.black,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                onRatingUpdate: (double value) {},
-                              ),
-                            ],
+                                FxText(
+                                  text: data[index].category!,
+                                  size: 14,
+                                  color: ConstColor.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                RatingBar.builder(
+                                  initialRating: 5,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 20,
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: ConstColor.primary2,
+                                    size: 18,
+                                  ),
+                                  onRatingUpdate: (double value) {},
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

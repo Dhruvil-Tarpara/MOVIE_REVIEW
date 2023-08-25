@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +11,8 @@ import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/bottom_sheet.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
-import 'package:movie_review/src/provider/bloc/bloc/opration_bloc.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
+import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/firebase_cloud.dart';
 import 'package:movie_review/src/provider/firebase/firestore/movie_model.dart';
 import 'package:movie_review/src/utils/extension/uuid.dart';
@@ -113,6 +115,7 @@ class _AddMovieState extends State<AddMovie> {
                                     await getImage(source: ImageSource.camera),
                                 key: uuid,
                               );
+                              setState(() {});
                               if (image == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -125,6 +128,7 @@ class _AddMovieState extends State<AddMovie> {
                                   ),
                                 );
                               }
+                              Navigator.pop(context);
                             },
                             onPressedGallery: () async {
                               image = await FirebaseCloudHelper
@@ -133,7 +137,7 @@ class _AddMovieState extends State<AddMovie> {
                                       file: await getImage(
                                           source: ImageSource.gallery),
                                       key: uuid);
-
+                              setState(() {});
                               if (image == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -146,6 +150,7 @@ class _AddMovieState extends State<AddMovie> {
                                   ),
                                 );
                               }
+                              Navigator.pop(context);
                             },
                           );
                         },
@@ -334,13 +339,18 @@ class _AddMovieState extends State<AddMovie> {
           ),
         ),
       ),
-      bottomNavigationBar: BlocListener<OprationBloc, OprationState>(
+      bottomNavigationBar: BlocListener<OperationBloc, OperationState>(
         listener: (context, state) {
           state.whenOrNull(
               fialed: (value) => (value)
                   ? ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: FxText(text: ConstString.errorMassage),
+                        content: FxText(
+                          text: ConstString.errorMassage,
+                          color: Colors.red,
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.white,
                       ),
                     )
                   : Navigator.pop(context));
@@ -354,8 +364,8 @@ class _AddMovieState extends State<AddMovie> {
               onPressed: () {
                 _valueNotifier.value = AutovalidateMode.onUserInteraction;
                 if (_movieKey.currentState!.validate() && image != null) {
-                  context.read<OprationBloc>().add(
-                        OprationEvent.addData(
+                  context.read<OperationBloc>().add(
+                     OperationEvent.addData(
                           Movie(
                             userId: Global.users.id,
                             movieId: uuid,
@@ -381,7 +391,12 @@ class _AddMovieState extends State<AddMovie> {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: FxText(text: ConstString.movieImageError),
+                      content: FxText(
+                        text: ConstString.movieImageError,
+                        color: Colors.red,
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.white,
                     ),
                   );
                   FirebaseCloudHelper.firebaseCloudHelper

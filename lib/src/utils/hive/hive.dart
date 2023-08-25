@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'hive_key.dart';
@@ -9,13 +8,12 @@ class HiveHelper {
   HiveHelper._();
   static final HiveHelper hiveHelper = HiveHelper._();
 
-   Future<Box> get instance async =>
-      box = await Hive.openBox(HiveKeys.boxName);
+  Future<Box> get instance async => box = await Hive.openBox(HiveKeys.boxName);
 
-   late Box box;
+  late Box box;
 
   /// To initialize hive
-   Future<Box> init() async {
+  Future<Box> init() async {
     final Directory directory = await getApplicationDocumentsDirectory();
     Hive.init(directory.path);
     await Hive.initFlutter();
@@ -24,35 +22,35 @@ class HiveHelper {
   }
 
   /// Set data in storage
-   void set(String key, dynamic value) {
+  void set(String key, dynamic value) {
     final String data = toJsonEncode(value);
     box.put(key, data);
   }
 
   /// Get data from storage
-   dynamic get(String key) {
+  dynamic get(String key) {
     final dynamic data = box.get(key);
 
     return data != null ? toJsonDecode(data) : data;
   }
 
   /// Remove data from storage
-   void remove(String key) async {
+  void remove(String key) async {
     await box.delete(key);
   }
 
   /// Set data in storage
-   bool isContainKey(String key) {
+  bool isContainKey(String key) {
     return box.containsKey(key);
   }
 
   /// clear data in storage
-   Future<int> clear() async {
+  Future<int> clear() async {
     return await box.clear();
   }
 
   /// To encode data
-   String toJsonEncode(dynamic value) {
+  String toJsonEncode(dynamic value) {
     try {
       return json.encode(value);
     } catch (e) {
@@ -61,7 +59,7 @@ class HiveHelper {
   }
 
   /// To decode data
-   dynamic toJsonDecode(dynamic value) {
+  dynamic toJsonDecode(dynamic value) {
     try {
       return json.decode(value);
     } catch (e) {

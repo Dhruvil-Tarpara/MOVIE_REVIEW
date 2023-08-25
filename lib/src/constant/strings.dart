@@ -6,6 +6,7 @@ class ConstString {
   static const String forgotPassword = "Forgot Password?";
   static const String noAccount = "Don't have an account?";
   static const String register = "Register!";
+  static const String googleLogin = "Sign in with google";
 
   // text filed
   static const String userName = "User Name";

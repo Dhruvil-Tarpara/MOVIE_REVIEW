@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 double height({required BuildContext context}) {
   return MediaQuery.sizeOf(context).height;
 }
@@ -8,7 +7,6 @@ double height({required BuildContext context}) {
 double width({required BuildContext context}) {
   return MediaQuery.sizeOf(context).width;
 }
-
 
 extension Mediaheight on double {
   double rheight({required BuildContext context}) {

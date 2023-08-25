@@ -65,7 +65,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     )
                 : ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(loginSuccess.error ?? ""),
+                      content: FxText(
+                        text: loginSuccess.error ?? "",
+                        color: Colors.red,
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.white,
                     ),
                   ),
           );
