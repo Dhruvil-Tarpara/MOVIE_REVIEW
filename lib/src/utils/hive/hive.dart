@@ -22,9 +22,9 @@ class HiveHelper {
   }
 
   /// Set data in storage
-  void set(String key, dynamic value) {
+  Future<void> set(String key, dynamic value) async {
     final String data = toJsonEncode(value);
-    box.put(key, data);
+    await box.put(key, data);
   }
 
   /// Get data from storage

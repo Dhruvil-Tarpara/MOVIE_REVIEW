@@ -9,7 +9,6 @@ import 'package:movie_review/src/constant/widgets/text_form_field.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
 import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/movie_model.dart';
-import 'package:movie_review/src/utils/extension/capitalize.dart';
 import 'package:movie_review/src/utils/extension/uuid.dart';
 import 'package:movie_review/src/utils/media_query.dart';
 
@@ -29,11 +28,6 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.movie.rating?.containsKey(Global.users.id.toString()) ?? false) {
-      rating = widget.movie.rating![Global.users.id][ConstString.rating]
-          .toString()
-          .todouble();
-    }
   }
 
   @override
@@ -277,6 +271,7 @@ class _DetailScreenState extends State<DetailScreen> {
           child: FxText(
             text: ConstString.writeReview,
             color: ConstColor.black,
+            size: 22,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -292,7 +287,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemSize: 20,
+                  itemSize: 30,
                   itemBuilder: (context, _) => Icon(
                     Icons.star,
                     color: ConstColor.primary2,

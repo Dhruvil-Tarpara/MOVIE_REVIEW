@@ -96,7 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (context, state) => state.when(
                   initial: () => const SizedBox.shrink(),
                   loding: () => const Center(
-                    child: CircularProgressIndicator.adaptive(),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
                   ),
                   success: (data) => ListView.builder(
                     shrinkWrap: true,

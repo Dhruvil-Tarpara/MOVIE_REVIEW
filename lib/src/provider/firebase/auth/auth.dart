@@ -25,7 +25,10 @@ class FirebaseAuthHelper {
         error: null,
         user: Users.fromDocument(credential.user),
       );
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      print("============");
+      print(e.code);
+      print("==============");
       final status = AuthExceptionHandler.handleException(e);
       return UserData(
         error: AuthExceptionHandler.generateExceptionMessage(status),
@@ -79,7 +82,7 @@ class FirebaseAuthHelper {
         error: null,
         user: Users.fromDocument(userCredential.user),
       );
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       final status = AuthExceptionHandler.handleException(e);
       return UserData(
           error: AuthExceptionHandler.generateExceptionMessage(status),
@@ -87,12 +90,12 @@ class FirebaseAuthHelper {
     }
   }
 
-  Future<bool> logout() async {
+  Future logout() async {
     try {
       await firebaseAuth.signOut();
-      return true;
+      await googleSignIn.signOut();
     } catch (e) {
-      return false;
+      print(e);
     }
   }
 }

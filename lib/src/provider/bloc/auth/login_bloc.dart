@@ -12,30 +12,39 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>(
       (event, emit) async {
         if (event is _LoginData) {
+          emit(const _Loding(true));
           UserData userData = await FirebaseAuthHelper.firebaseAuthHelper
               .signInwithEmailPassword(
                   email: event.email, password: event.password);
           if (userData.user != null) {
+            emit(const _Loding(false));
             emit(_Success(userData));
           } else {
-            emit(_Success(userData));
+            emit(const _Loding(false));
+            emit(_Error(userData.error!));
           }
         } else if (event is _SignUpData) {
+          emit(const _Loding(true));
           UserData userData = await FirebaseAuthHelper.firebaseAuthHelper
               .signUpWithEmailPassword(
                   email: event.email, password: event.password);
           if (userData.user != null) {
+            emit(const _Loding(false));
             emit(_Success(userData));
           } else {
-            emit(_Success(userData));
+            emit(const _Loding(false));
+            emit(_Error(userData.error!));
           }
-        } else {
+        } else if (event is _GoogleLogin) {
+          emit(const _Loding(true));
           UserData userData =
               await FirebaseAuthHelper.firebaseAuthHelper.signInWithGoogle();
           if (userData.user != null) {
+            emit(const _Loding(false));
             emit(_Success(userData));
           } else {
-            emit(_Success(userData));
+            emit(const _Loding(false));
+            emit(_Error(userData.error!));
           }
         }
       },

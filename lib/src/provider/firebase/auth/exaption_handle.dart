@@ -14,16 +14,16 @@ class AuthExceptionHandler {
   static handleException(e) {
     AuthResultStatus status;
     switch (e.code) {
-      case "ERROR_INVALID_EMAIL":
+      case "invalid-email":
         status = AuthResultStatus.invalidEmail;
         break;
       case "ERROR_WRONG_PASSWORD":
         status = AuthResultStatus.wrongPassword;
         break;
-      case "ERROR_USER_NOT_FOUND":
+      case "user-not-found":
         status = AuthResultStatus.userNotFound;
         break;
-      case "ERROR_USER_DISABLED":
+      case "user-disabled":
         status = AuthResultStatus.userDisabled;
         break;
       case "ERROR_TOO_MANY_REQUESTS":
@@ -32,7 +32,7 @@ class AuthExceptionHandler {
       case "ERROR_OPERATION_NOT_ALLOWED":
         status = AuthResultStatus.operationNotAllowed;
         break;
-      case "ERROR_EMAIL_ALREADY_IN_USE":
+      case "email-already-in-use":
         status = AuthResultStatus.emailAlreadyExists;
         break;
       default:

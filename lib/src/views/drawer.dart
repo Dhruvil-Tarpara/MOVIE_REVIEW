@@ -93,10 +93,11 @@ class FxDrawer extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: ElevatedButton(
-                onPressed: () {
-                  FirebaseAuthHelper.firebaseAuthHelper.firebaseAuth.signOut();
-                  HiveHelper.hiveHelper.set(HiveKeys.login, false);
-                  drawerKey.currentState!.closeDrawer();
+                onPressed: () async {
+                  await FirebaseAuthHelper.firebaseAuthHelper.logout();
+                  await HiveHelper.hiveHelper.set(HiveKeys.login, false);
+
+                  // ignore: use_build_context_synchronously
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

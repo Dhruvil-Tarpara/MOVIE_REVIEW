@@ -7,7 +7,6 @@ import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/views/home.dart';
 import 'package:movie_review/src/views/login.dart';
-import 'package:movie_review/src/views/sign_up.dart';
 import 'provider/bloc/auth/login_bloc.dart';
 import 'provider/bloc/data/movie_data_bloc.dart';
 
@@ -36,20 +35,16 @@ class _MyAppState extends State<MyApp> {
               const MovieDataEvent.getData(),
             ),
         ),
-        BlocProvider(
-          create: (context) => OperationBloc(),
-        ),
-        BlocProvider(
-          create: (context) => ObscureText(),
-        )
+        BlocProvider(create: (context) => OperationBloc()),
+        BlocProvider(create: (context) => LoginPassword()),
+        BlocProvider(create: (context) => SignUpPassword()),
+        BlocProvider(create: (context) => ConformPassword()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: (HiveHelper.hiveHelper.get(HiveKeys.login) ?? false)
             ? const HomeScreen()
-            : (HiveHelper.hiveHelper.get(HiveKeys.signUp) ?? false)
-                ? const LoginScreen()
-                : const SignUpScreen(),
+            : const LoginScreen(),
       ),
     );
   }
