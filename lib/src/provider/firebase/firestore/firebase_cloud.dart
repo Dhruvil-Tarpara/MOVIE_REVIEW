@@ -49,9 +49,9 @@ class FirebaseCloudHelper {
   /// Upload movie image and create folder using userId 
   Future<String?> uplodeImage({required String key, required File file}) async {
     try {
-      await firebaseStorage.ref("${Global.users!.id}/$key").putFile(file);
+      await firebaseStorage.ref("${Global.users.id}/$key").putFile(file);
       final url =
-          await firebaseStorage.ref("${Global.users!.id}/$key").getDownloadURL();
+          await firebaseStorage.ref("${Global.users.id}/$key").getDownloadURL();
       return url;
     } on FirebaseException catch (_) {
       return null;
@@ -61,7 +61,7 @@ class FirebaseCloudHelper {
  /// Delete image in folder
   Future<bool> deleteImage({required String key}) async {
     try {
-      await firebaseStorage.ref("${Global.users!.id}/$key").delete();
+      await firebaseStorage.ref("${Global.users.id}/$key").delete();
       return true;
     } on FirebaseException catch (_) {
       return false;
