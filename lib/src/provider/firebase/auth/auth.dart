@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:movie_review/src/constant/global.dart';
+import 'package:movie_review/src/utils/hive/hive.dart';
+import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'exaption_handle.dart';
 import 'model.dart';
 
@@ -26,9 +29,6 @@ class FirebaseAuthHelper {
         user: Users.fromDocument(credential.user),
       );
     } on FirebaseAuthException catch (e) {
-      print("============");
-      print(e.code);
-      print("==============");
       final status = AuthExceptionHandler.handleException(e);
       return UserData(
         error: AuthExceptionHandler.generateExceptionMessage(status),
@@ -90,12 +90,31 @@ class FirebaseAuthHelper {
     }
   }
 
+  Future<bool> getCurrentUser() async {
+    try {
+      await firebaseAuth.currentUser!.reload();
+      User? user = firebaseAuth.currentUser;
+      HiveHelper.hiveHelper.set(
+        HiveKeys.user,
+        Users(
+          userName: user!.displayName,
+          email: user.email,
+          id: user.uid,
+          url: user.photoURL,
+          emailVarify: user.emailVerified,
+        ).toJson(),
+      );
+      Global.users = Users.fromJson(HiveHelper.hiveHelper.get(HiveKeys.user));
+      return user.emailVerified;
+    } catch (_) {}
+
+    return false;
+  }
+
   Future logout() async {
     try {
       await firebaseAuth.signOut();
       await googleSignIn.signOut();
-    } catch (e) {
-      print(e);
-    }
+    } catch (_) {}
   }
 }

@@ -5,11 +5,10 @@ import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
-import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/login/login_bloc.dart';
 import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
-
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/utils/validetion.dart';
 import 'package:movie_review/src/views/sign_up.dart';
@@ -64,10 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
               HiveHelper.hiveHelper.set(HiveKeys.login, true);
               HiveHelper.hiveHelper
                   .set(HiveKeys.user, loginSuccess.user!.toJson());
-              Navigator.of(context).pushReplacement(
+              Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => const HomeScreen(),
                 ),
+                (route) => false,
               );
               _clearController();
             },

@@ -70,5 +70,7 @@ class ConstString {
 
   static const String logout = "Log out ";
   static const String myJournal = "My Journal";
+  static const String allMovie = "All Journal";
   static const String allReview = "All Review and Rating";
+  static const String emailVerify = "Verify your email address..";
 }

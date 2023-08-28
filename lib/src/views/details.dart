@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -11,6 +12,7 @@ import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/movie_model.dart';
 import 'package:movie_review/src/utils/extension/uuid.dart';
 import 'package:movie_review/src/utils/media_query.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailScreen extends StatefulWidget {
   final Movie movie;
@@ -87,12 +89,21 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     elevation: 4,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image(
-                        image: NetworkImage(isSuccess.image!),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      child: CachedNetworkImage(
                         height: height(context: context) * 0.24,
                         width: width(context: context),
+                        imageUrl: isSuccess.image!,
                         fit: BoxFit.cover,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: ConstColor.white,
+                          highlightColor: ConstColor.primary3,
+                          child: Container(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),

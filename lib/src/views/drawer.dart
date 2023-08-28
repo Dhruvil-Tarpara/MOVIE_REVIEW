@@ -96,7 +96,6 @@ class FxDrawer extends StatelessWidget {
                 onPressed: () async {
                   await FirebaseAuthHelper.firebaseAuthHelper.logout();
                   await HiveHelper.hiveHelper.set(HiveKeys.login, false);
-
                   // ignore: use_build_context_synchronously
                   Navigator.pushReplacement(
                     context,

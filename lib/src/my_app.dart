@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/login/login_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/sign_up/sign_up_bloc.dart';
 import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/firebase_cloud.dart';
@@ -7,7 +9,6 @@ import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/views/home.dart';
 import 'package:movie_review/src/views/login.dart';
-import 'provider/bloc/auth/login_bloc.dart';
 import 'provider/bloc/data/movie_data_bloc.dart';
 
 class MyApp extends StatefulWidget {
@@ -29,6 +30,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => SignUpBloc()),
         BlocProvider(
           create: (context) => MovieDataBloc()
             ..add(
