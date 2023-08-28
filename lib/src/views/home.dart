@@ -169,121 +169,129 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           success: (data) => ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: data.length,
-                            itemBuilder: (context, index) => InkWell(
-                              onTap: () {
-                                context.read<OperationBloc>().add(
-                                      OperationEvent.getData(
-                                        data[index].movieId.toString(),
-                                      ),
-                                    );
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailScreen(
-                                      movie: data[index],
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  elevation: 4,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20)),
-                                        child: CachedNetworkImage(
-                                          height:
-                                              height(context: context) * 0.24,
-                                          width: width(context: context),
-                                          imageUrl: data[index].image!,
-                                          fit: BoxFit.cover,
-                                          placeholder: (context, url) =>
-                                              Shimmer.fromColors(
-                                            baseColor: ConstColor.white,
-                                            highlightColor: ConstColor.primary3,
-                                            child: Container(),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    context.read<OperationBloc>().add(
+                                          OperationEvent.getData(
+                                            data[index].movieId.toString(),
                                           ),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
+                                        );
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailScreen(
+                                          movie: data[index],
                                         ),
                                       ),
-                                      FxText(
-                                        text: data[index].movieName!,
-                                        size: 22,
-                                        color: ConstColor.black,
-                                        fontWeight: FontWeight.w600,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
-                                      FxText(
-                                        text: data[index].category!,
-                                        size: 14,
-                                        color: ConstColor.black,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                      elevation: 4,
+                                      child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          RatingBar.builder(
-                                            initialRating:
-                                                calculateAverageRating(
-                                              data[index]
-                                                  .rating!
-                                                  .values
-                                                  .toList(),
+                                          ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(20),
+                                                    topRight:
+                                                        Radius.circular(20)),
+                                            child: CachedNetworkImage(
+                                              height: height(context: context) *
+                                                  0.24,
+                                              width: width(context: context),
+                                              imageUrl: data[index].image!,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  Shimmer.fromColors(
+                                                baseColor: ConstColor.white,
+                                                highlightColor:
+                                                    ConstColor.primary3,
+                                                child: Container(),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
                                             ),
-                                            direction: Axis.horizontal,
-                                            allowHalfRating: true,
-                                            tapOnlyMode: true,
-                                            glow: false,
-                                            updateOnDrag: false,
-                                            ignoreGestures: true,
-                                            itemCount: 5,
-                                            itemSize: 20,
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: ConstColor.primary2,
-                                              size: 18,
-                                            ),
-                                            onRatingUpdate: (double value) {},
-                                          ),
-                                          SizedBox(
-                                            width:
-                                                width(context: context) * 0.02,
                                           ),
                                           FxText(
-                                            text: calculateAverageRating(
-                                                    data[index]
-                                                        .rating!
-                                                        .values
-                                                        .toList())
-                                                .toStringAsFixed(1),
+                                            text: data[index].movieName!,
+                                            size: 22,
+                                            color: ConstColor.black,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          FxText(
+                                            text: data[index].category!,
                                             size: 14,
-                                            color: ConstColor.primary1,
-                                            fontWeight: FontWeight.w500,
+                                            color: ConstColor.black,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              RatingBar.builder(
+                                                initialRating:
+                                                    calculateAverageRating(
+                                                  data[index]
+                                                      .rating!
+                                                      .values
+                                                      .toList(),
+                                                ),
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                tapOnlyMode: true,
+                                                glow: false,
+                                                updateOnDrag: false,
+                                                ignoreGestures: true,
+                                                itemCount: 5,
+                                                itemSize: 20,
+                                                itemBuilder: (context, _) =>
+                                                    Icon(
+                                                  Icons.star,
+                                                  color: ConstColor.primary2,
+                                                  size: 18,
+                                                ),
+                                                onRatingUpdate:
+                                                    (double value) {},
+                                              ),
+                                              SizedBox(
+                                                width: width(context: context) *
+                                                    0.02,
+                                              ),
+                                              FxText(
+                                                text: calculateAverageRating(
+                                                        data[index]
+                                                            .rating!
+                                                            .values
+                                                            .toList())
+                                                    .toStringAsFixed(1),
+                                                size: 14,
+                                                color: ConstColor.primary1,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
+                                );
+                              }),
                           error: (massage) => Center(
                             child: FxText(text: massage),
                           ),
