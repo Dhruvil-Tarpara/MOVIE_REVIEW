@@ -1,16 +1,29 @@
-# movie_review
+# Movie Review App
 
-A new Flutter project.
+![App Logo](https://github.com/Dhruvilsarvadhi/MOVIE_REVIEW/assets/135802784/bc56a856-04e0-46af-a05d-746218624a35)
 
-## Getting Started
+The Movie Review App allows users to discover, rate, and review movies. It provides a platform for movie enthusiasts to share their thoughts, read reviews from others, and make informed decisions about what to watch.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Browse Movies**: Explore a vast collection of movies sorted by genres, release dates, and popularity.
+- **Search**: Easily find movies using the search bar.
+- **Movie Details**: Get comprehensive information about a movie, including its synopsis, cast, crew, and user reviews.
+- **Rate and Review**: Logged-in users can rate and write reviews for movies they've watched.
+- **User Profiles**: Users have profiles where they can see their reviewed movies and their overall rating history.
+- **Responsive Design**: The app is designed to work smoothly on various devices, including smartphones.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone this repository: `https://github.com/Dhruvilsarvadhi/MOVIE_REVIEW.git`
+2. Navigate to the project directory: `cd movie-review-app`
+3. Install dependencies: `npm install`
+4. Start the app: `npm start`
+
+## Technologies Used
+
+- Frontend: Flutter
+- Database: Cloud Firestore
+- User Authentication: Firebase Authentication
+- UI Framework: Bootstrap
+
