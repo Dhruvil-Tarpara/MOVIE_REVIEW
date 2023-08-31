@@ -15,6 +15,7 @@ import 'package:movie_review/src/utils/extension/uuid.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/utils/media_query.dart';
+import 'package:movie_review/src/utils/sim_iccid.dart';
 import 'package:movie_review/src/views/details.dart';
 import 'package:movie_review/src/views/drawer.dart';
 import 'package:movie_review/src/views/movie.dart';
@@ -33,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    storData();
     Global.users = Users.fromJson(HiveHelper.hiveHelper.get(HiveKeys.user));
   }
 
@@ -114,10 +114,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       context
                           .read<MovieDataBloc>()
                           .add(const MovieDataEvent.refreshData());
+                      await getIccId();
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
@@ -154,6 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -187,7 +190,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           movie: data[index],
                                         ),
                                       ),
+                                    ).then(
+                                      (value) => FocusManager
+                                          .instance.primaryFocus
+                                          ?.unfocus(),
                                     );
+                                    setState(() {});
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(

@@ -8,6 +8,7 @@ import 'src/my_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //IccidRetrieverPlugin.registerWith(Registrar.registrarFor("iccid_retriever"));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
