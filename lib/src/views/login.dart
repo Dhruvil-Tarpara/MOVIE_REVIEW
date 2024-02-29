@@ -5,11 +5,10 @@ import 'package:movie_review/src/constant/global.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
-import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/login/login_bloc.dart';
 import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
-
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/utils/validetion.dart';
 import 'package:movie_review/src/views/sign_up.dart';
@@ -17,6 +16,7 @@ import 'package:movie_review/src/views/sign_up.dart';
 import 'home.dart';
 import 'login/bottom_button.dart';
 import 'login/button.dart';
+import 'login/dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _valueNotifier.value = AutovalidateMode.disabled;
   }
 
+
   @override
   void dispose() {
     super.dispose();
@@ -52,29 +53,36 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           state.whenOrNull(
-            success: (loginSuccess) {
-              if (loginSuccess.user != null) {
-                HiveHelper.hiveHelper.set(HiveKeys.login, true);
-                HiveHelper.hiveHelper
-                    .set(HiveKeys.user, loginSuccess.user!.toJson());
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ),
-                );
-                _clearController();
+            loding: (isLoding) {
+              if (isLoding) {
+                Dialogs.showLoadingDialog(context);
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: FxText(
-                      text: loginSuccess.error ?? "",
-                      color: Colors.red,
-                    ),
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.white,
-                  ),
-                );
+                Navigator.pop(context);
               }
+            },
+            success: (loginSuccess) {
+              HiveHelper.hiveHelper.set(HiveKeys.login, true);
+              HiveHelper.hiveHelper
+                  .set(HiveKeys.user, loginSuccess.user!.toJson());
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ),
+                (route) => false,
+              );
+              _clearController();
+            },
+            error: (massage) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: FxText(
+                    text: massage,
+                    color: Colors.red,
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.white,
+                ),
+              );
             },
           );
         },
@@ -135,16 +143,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: ConstColor.black,
                       size: 14,
                     ),
-                    obscureText: context.watch<ObscureText>().state,
+                    obscureText: context.watch<LoginPassword>().state,
                     maxLine: 1,
                     suffix: IconButton(
                       focusColor: Colors.transparent,
                       disabledColor: Colors.transparent,
                       splashColor: Colors.transparent,
                       onPressed: () {
-                        context.read<ObscureText>().upDateObscureText();
+                        context.read<LoginPassword>().upDateObscureText();
                       },
-                      icon: context.watch<ObscureText>().state
+                      icon: context.watch<LoginPassword>().state
                           ? Icon(
                               Icons.visibility_off,
                               color: ConstColor.grey,
@@ -252,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
       bottomNavigationBar: BottomButton(
         onPressed: () {
           Navigator.of(context)
-              .pushReplacement(
+              .push(
                 MaterialPageRoute(
                   builder: (context) => const SignUpScreen(),
                 ),

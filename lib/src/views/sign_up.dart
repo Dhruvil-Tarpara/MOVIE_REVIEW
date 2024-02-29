@@ -4,12 +4,12 @@ import 'package:movie_review/src/constant/colors.dart';
 import 'package:movie_review/src/constant/strings.dart';
 import 'package:movie_review/src/constant/widgets/text.dart';
 import 'package:movie_review/src/constant/widgets/text_form_field.dart';
-import 'package:movie_review/src/provider/bloc/auth/login_bloc.dart';
-import 'package:movie_review/src/utils/hive/hive.dart';
-import 'package:movie_review/src/utils/hive/hive_key.dart';
+import 'package:movie_review/src/provider/bloc/auth/sign_up/sign_up_bloc.dart';
+import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/utils/media_query.dart';
 import 'package:movie_review/src/utils/validetion.dart';
 import 'package:movie_review/src/views/login.dart';
+import 'package:movie_review/src/views/login/dialog.dart';
 
 import 'login/bottom_button.dart';
 import 'login/button.dart';
@@ -46,33 +46,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: ConstColor.white,
-      body: BlocListener<LoginBloc, LoginState>(
+      body: BlocListener<SignUpBloc, SignUpState>(
         listener: (context, state) {
           state.whenOrNull(
-            success: (loginSuccess) => (loginSuccess.user != null)
-                ? Navigator.of(context)
-                    .pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    )
-                    .then((value) =>
-                        HiveHelper.hiveHelper.set(HiveKeys.signUp, true))
-                    .then(
-                      (value) => _clearController(),
-                    )
-                : ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: FxText(
-                        text: loginSuccess.error ?? "",
-                        color: Colors.red,
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.white,
-                    ),
+            loding: (isLoding) {
+              if (isLoding) {
+                Dialogs.showLoadingDialog(context);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+            success: (loginSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: FxText(
+                    text: ConstString.createAcoount,
+                    color: Colors.green,
+                    fontWeight: FontWeight.w500,
                   ),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.white,
+                ),
+              );
+              Navigator.of(context)
+                  .pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  )
+                  .then(
+                    (value) => _clearController(),
+                  );
+            },
+            error: (massage) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: FxText(
+                    text: massage,
+                    color: Colors.red,
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.white,
+                ),
+              );
+            },
           );
         },
         child: ValueListenableBuilder(
@@ -80,12 +98,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           builder: (context, value, child) => Form(
             autovalidateMode: value,
             key: _singUpKey,
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: height(context: context) * 0.14,
+                  ),
                   const FxText(
                     text: ConstString.signUpTitle,
                     size: 24,
@@ -146,8 +167,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FxTextFormField(
                     controller: _passwordController,
                     textInputType: TextInputType.text,
-                    obscureText: true,
+                    obscureText: context.watch<SignUpPassword>().state,
                     maxLine: 1,
+                    suffix: IconButton(
+                      focusColor: Colors.transparent,
+                      disabledColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onPressed: () {
+                        context.read<SignUpPassword>().upDateObscureText();
+                      },
+                      icon: context.watch<SignUpPassword>().state
+                          ? Icon(
+                              Icons.visibility_off,
+                              color: ConstColor.grey,
+                            )
+                          : Icon(
+                              Icons.visibility,
+                              color: ConstColor.primary2,
+                            ),
+                    ),
                     labelText: FxText(
                       text: ConstString.password,
                       color: ConstColor.black,
@@ -170,8 +208,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FxTextFormField(
                     controller: _conformPasswordController,
                     textInputType: TextInputType.text,
-                    obscureText: true,
+                    obscureText: context.watch<ConformPassword>().state,
                     maxLine: 1,
+                    suffix: IconButton(
+                      focusColor: Colors.transparent,
+                      disabledColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onPressed: () {
+                        context.read<ConformPassword>().upDateObscureText();
+                      },
+                      icon: context.watch<ConformPassword>().state
+                          ? Icon(
+                              Icons.visibility_off,
+                              color: ConstColor.grey,
+                            )
+                          : Icon(
+                              Icons.visibility,
+                              color: ConstColor.primary2,
+                            ),
+                    ),
                     labelText: FxText(
                       text: ConstString.conformPassword,
                       color: ConstColor.black,
@@ -198,8 +253,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         _valueNotifier.value =
                             AutovalidateMode.onUserInteraction;
                         if (_singUpKey.currentState!.validate()) {
-                          context.read<LoginBloc>().add(
-                                LoginEvent.signUpData(
+                          context.read<SignUpBloc>().add(
+                                SignUpEvent.signUpData(
                                   _emailController.text,
                                   _passwordController.text,
                                 ),

@@ -38,6 +38,7 @@ class _AddMovieState extends State<AddMovie> {
   final TextEditingController _descriptionController = TextEditingController();
   final ImagePicker picker = ImagePicker();
   String? image;
+  File? file;
   String uuid = idGenerator();
 
   @override
@@ -82,21 +83,8 @@ class _AddMovieState extends State<AddMovie> {
                   SizedBox(
                     height: height(context: context) * 0.02,
                   ),
-                  CircleAvatar(
-                    radius: 62,
-                    backgroundColor: ConstColor.primary2,
-                    child: (image != null)
-                        ? CircleAvatar(
-                            radius: 58,
-                            backgroundImage: NetworkImage(image!),
-                          )
-                        : const CircleAvatar(
-                            radius: 58,
-                            backgroundImage: AssetImage(Global.uploadImage),
-                          ),
-                  ),
-                  TextButton(
-                    onPressed: () {
+                  InkWell(
+                    onTap: () {
                       showModalBottomSheet<void>(
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
@@ -108,15 +96,9 @@ class _AddMovieState extends State<AddMovie> {
                         builder: (BuildContext context) {
                           return FxBottomSheet(
                             onPressedCamera: () async {
-                              image = await FirebaseCloudHelper
-                                  .firebaseCloudHelper
-                                  .uplodeImage(
-                                file:
-                                    await getImage(source: ImageSource.camera),
-                                key: uuid,
-                              );
+                              file = await getImage(source: ImageSource.camera);
                               setState(() {});
-                              if (image == null) {
+                              if (file == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: FxText(
@@ -131,14 +113,75 @@ class _AddMovieState extends State<AddMovie> {
                               Navigator.pop(context);
                             },
                             onPressedGallery: () async {
-                              image = await FirebaseCloudHelper
-                                  .firebaseCloudHelper
-                                  .uplodeImage(
-                                      file: await getImage(
-                                          source: ImageSource.gallery),
-                                      key: uuid);
+                              file =
+                                  await getImage(source: ImageSource.gallery);
                               setState(() {});
-                              if (image == null) {
+                              if (file == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: FxText(
+                                      text: ConstString.errorMassage,
+                                      color: Colors.red,
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.white,
+                                  ),
+                                );
+                              }
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    },
+                    child: CircleAvatar(
+                      radius: 62,
+                      backgroundColor: ConstColor.primary2,
+                      child: (file != null)
+                          ? CircleAvatar(
+                              radius: 58,
+                              backgroundImage: FileImage(file!),
+                            )
+                          : const CircleAvatar(
+                              radius: 58,
+                              backgroundImage: AssetImage(Global.uploadImage),
+                            ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return FxBottomSheet(
+                            onPressedCamera: () async {
+                              file = await getImage(source: ImageSource.camera);
+                              setState(() {});
+                              if (file == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: FxText(
+                                      text: ConstString.errorMassage,
+                                      color: Colors.red,
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.white,
+                                  ),
+                                );
+                              }
+                              Navigator.pop(context);
+                            },
+                            onPressedGallery: () async {
+                              file =
+                                  await getImage(source: ImageSource.gallery);
+                              setState(() {});
+                              if (file == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: FxText(
@@ -361,11 +404,13 @@ class _AddMovieState extends State<AddMovie> {
             height: height(context: context) * 0.068,
             child: FxButton(
               buttonText: ConstString.addMovie,
-              onPressed: () {
+              onPressed: () async {
                 _valueNotifier.value = AutovalidateMode.onUserInteraction;
+                image = await FirebaseCloudHelper.firebaseCloudHelper
+                    .uplodeImage(file: file!, key: uuid);
                 if (_movieKey.currentState!.validate() && image != null) {
                   context.read<OperationBloc>().add(
-                     OperationEvent.addData(
+                        OperationEvent.addData(
                           Movie(
                             userId: Global.users.id,
                             movieId: uuid,

@@ -13,18 +13,21 @@ class ConstString {
   static const String email = "Email";
   static const String password = "Password";
   static const String conformPassword = "Conform Password";
-  static const String emailError1 = "please enter your email";
-  static const String emailError2 = "Invalied email...";
-  static const String passwordError1 = "please enter password";
-  static const String passwordError2 = "please try to other...";
-  static const String passwordError3 = "Invalied password...";
-  static const String nameError1 = "please enter your name";
+  static const String emailError1 = "Enter a valid email address.";
+  static const String emailError2 = "The email address is invalid.";
+  static const String passwordError1 = "Please enter password";
+  static const String passwordError2 =
+      "Password must be at least 8 characters long or one special character.";
+  static const String passwordError3 = "Passwords do not match.";
+  static const String nameError1 = "Please enter your name";
 
   // sign up screen
   static const String signUp = "Create Account";
   static const String signUpTitle = "Create an account!";
   static const String signUpSubtitle = "Keep your data safe!";
   static const String haveAccount = "Aleady have an account?";
+  static const String createAcoount =
+      "Congratulations! Your account has been created successfully";
 
   // add movie screen
   static const String movieImage = "Add Movie Image";
@@ -40,14 +43,14 @@ class ConstString {
   static const String addMovie = "Add New Movie";
   static const String dateFormat = 'dd-MM-yyyy';
 
-  static const String movieImageError = "please upload movie image...";
-  static const String movieNameError = "please enter movie name";
-  static const String categoryError = "please enter category";
-  static const String reviewError = "please enter review";
-  static const String releaseDateError = "please enter releaseDate";
-  static const String releaseTimeError = "please enter releaseTime";
-  static const String prodactionError = "please enter prodaction name";
-  static const String descriptionError = "please enter description";
+  static const String movieImageError = "Please upload movie image...";
+  static const String movieNameError = "Please enter movie name";
+  static const String categoryError = "Please enter category";
+  static const String reviewError = "Please enter review";
+  static const String releaseDateError = "Please enter releaseDate";
+  static const String releaseTimeError = "Please enter releaseTime";
+  static const String prodactionError = "Please enter prodaction name";
+  static const String descriptionError = "Please enter description";
 
   static const String search = "Search movie";
   static const String errorMassage = "Something went wrong please try again";
@@ -67,5 +70,7 @@ class ConstString {
 
   static const String logout = "Log out ";
   static const String myJournal = "My Journal";
+  static const String allMovie = "All Journal";
   static const String allReview = "All Review and Rating";
+  static const String emailVerify = "Verify your email address..";
 }

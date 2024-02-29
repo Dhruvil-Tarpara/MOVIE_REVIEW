@@ -99,10 +99,10 @@ class __$$_AddDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? movie = freezed,
+    Object? movie = null,
   }) {
     return _then(_$_AddData(
-      freezed == movie
+      null == movie
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
@@ -128,12 +128,11 @@ class _$_AddData implements _AddData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddData &&
-            const DeepCollectionEquality().equals(other.movie, movie));
+            (identical(other.movie, movie) || other.movie == movie));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(movie));
+  int get hashCode => Object.hash(runtimeType, movie);
 
   @JsonKey(ignore: true)
   @override
@@ -237,11 +236,11 @@ class __$$_UpDateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? movie = freezed,
+    Object? movie = null,
     Object? docId = null,
   }) {
     return _then(_$_UpDate(
-      freezed == movie
+      null == movie
           ? _value.movie
           : movie // ignore: cast_nullable_to_non_nullable
               as Movie,
@@ -273,13 +272,12 @@ class _$_UpDate implements _UpDate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UpDate &&
-            const DeepCollectionEquality().equals(other.movie, movie) &&
+            (identical(other.movie, movie) || other.movie == movie) &&
             (identical(other.docId, docId) || other.docId == docId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(movie), docId);
+  int get hashCode => Object.hash(runtimeType, movie, docId);
 
   @JsonKey(ignore: true)
   @override
@@ -696,10 +694,10 @@ class __$$_SuccessCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isSuccess = freezed,
+    Object? isSuccess = null,
   }) {
     return _then(_$_Success(
-      freezed == isSuccess
+      null == isSuccess
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
               as Movie,
@@ -725,12 +723,12 @@ class _$_Success implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Success &&
-            const DeepCollectionEquality().equals(other.isSuccess, isSuccess));
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(isSuccess));
+  int get hashCode => Object.hash(runtimeType, isSuccess);
 
   @JsonKey(ignore: true)
   @override

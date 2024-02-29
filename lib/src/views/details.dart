@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,9 +10,9 @@ import 'package:movie_review/src/constant/widgets/text_form_field.dart';
 import 'package:movie_review/src/provider/bloc/data/movie_data_bloc.dart';
 import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/movie_model.dart';
-import 'package:movie_review/src/utils/extension/capitalize.dart';
 import 'package:movie_review/src/utils/extension/uuid.dart';
 import 'package:movie_review/src/utils/media_query.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailScreen extends StatefulWidget {
   final Movie movie;
@@ -29,11 +30,6 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.movie.rating?.containsKey(Global.users.id.toString()) ?? false) {
-      rating = widget.movie.rating![Global.users.id][ConstString.rating]
-          .toString()
-          .todouble();
-    }
   }
 
   @override
@@ -93,12 +89,21 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     elevation: 4,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image(
-                        image: NetworkImage(isSuccess.image!),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      child: CachedNetworkImage(
                         height: height(context: context) * 0.24,
                         width: width(context: context),
+                        imageUrl: isSuccess.image!,
                         fit: BoxFit.cover,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: ConstColor.white,
+                          highlightColor: ConstColor.primary3,
+                          child: Container(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -277,6 +282,7 @@ class _DetailScreenState extends State<DetailScreen> {
           child: FxText(
             text: ConstString.writeReview,
             color: ConstColor.black,
+            size: 22,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -292,7 +298,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemSize: 20,
+                  itemSize: 30,
                   itemBuilder: (context, _) => Icon(
                     Icons.star,
                     color: ConstColor.primary2,

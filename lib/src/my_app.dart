@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/login/login_bloc.dart';
+import 'package:movie_review/src/provider/bloc/auth/sign_up/sign_up_bloc.dart';
 import 'package:movie_review/src/provider/bloc/obscure_cubit.dart';
 import 'package:movie_review/src/provider/bloc/operation/operation_bloc.dart';
 import 'package:movie_review/src/provider/firebase/firestore/firebase_cloud.dart';
@@ -7,8 +9,6 @@ import 'package:movie_review/src/utils/hive/hive.dart';
 import 'package:movie_review/src/utils/hive/hive_key.dart';
 import 'package:movie_review/src/views/home.dart';
 import 'package:movie_review/src/views/login.dart';
-import 'package:movie_review/src/views/sign_up.dart';
-import 'provider/bloc/auth/login_bloc.dart';
 import 'provider/bloc/data/movie_data_bloc.dart';
 
 class MyApp extends StatefulWidget {
@@ -30,26 +30,23 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => SignUpBloc()),
         BlocProvider(
           create: (context) => MovieDataBloc()
             ..add(
               const MovieDataEvent.getData(),
             ),
         ),
-        BlocProvider(
-          create: (context) => OperationBloc(),
-        ),
-        BlocProvider(
-          create: (context) => ObscureText(),
-        )
+        BlocProvider(create: (context) => OperationBloc()),
+        BlocProvider(create: (context) => LoginPassword()),
+        BlocProvider(create: (context) => SignUpPassword()),
+        BlocProvider(create: (context) => ConformPassword()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: (HiveHelper.hiveHelper.get(HiveKeys.login) ?? false)
             ? const HomeScreen()
-            : (HiveHelper.hiveHelper.get(HiveKeys.signUp) ?? false)
-                ? const LoginScreen()
-                : const SignUpScreen(),
+            : const LoginScreen(),
       ),
     );
   }

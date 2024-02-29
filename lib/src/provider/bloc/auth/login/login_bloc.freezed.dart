@@ -19,21 +19,18 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, dynamic password) loginData,
-    required TResult Function(String email, dynamic password) signUpData,
     required TResult Function() googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, dynamic password)? loginData,
-    TResult? Function(String email, dynamic password)? signUpData,
     TResult? Function()? googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, dynamic password)? loginData,
-    TResult Function(String email, dynamic password)? signUpData,
     TResult Function()? googleLogin,
     required TResult orElse(),
   }) =>
@@ -41,21 +38,18 @@ mixin _$LoginEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginData value) loginData,
-    required TResult Function(_SignUpData value) signUpData,
     required TResult Function(_GoogleLogin value) googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginData value)? loginData,
-    TResult? Function(_SignUpData value)? signUpData,
     TResult? Function(_GoogleLogin value)? googleLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginData value)? loginData,
-    TResult Function(_SignUpData value)? signUpData,
     TResult Function(_GoogleLogin value)? googleLogin,
     required TResult orElse(),
   }) =>
@@ -151,7 +145,6 @@ class _$_LoginData implements _LoginData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, dynamic password) loginData,
-    required TResult Function(String email, dynamic password) signUpData,
     required TResult Function() googleLogin,
   }) {
     return loginData(email, password);
@@ -161,7 +154,6 @@ class _$_LoginData implements _LoginData {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, dynamic password)? loginData,
-    TResult? Function(String email, dynamic password)? signUpData,
     TResult? Function()? googleLogin,
   }) {
     return loginData?.call(email, password);
@@ -171,7 +163,6 @@ class _$_LoginData implements _LoginData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, dynamic password)? loginData,
-    TResult Function(String email, dynamic password)? signUpData,
     TResult Function()? googleLogin,
     required TResult orElse(),
   }) {
@@ -185,7 +176,6 @@ class _$_LoginData implements _LoginData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginData value) loginData,
-    required TResult Function(_SignUpData value) signUpData,
     required TResult Function(_GoogleLogin value) googleLogin,
   }) {
     return loginData(this);
@@ -195,7 +185,6 @@ class _$_LoginData implements _LoginData {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginData value)? loginData,
-    TResult? Function(_SignUpData value)? signUpData,
     TResult? Function(_GoogleLogin value)? googleLogin,
   }) {
     return loginData?.call(this);
@@ -205,7 +194,6 @@ class _$_LoginData implements _LoginData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginData value)? loginData,
-    TResult Function(_SignUpData value)? signUpData,
     TResult Function(_GoogleLogin value)? googleLogin,
     required TResult orElse(),
   }) {
@@ -224,153 +212,6 @@ abstract class _LoginData implements LoginEvent {
   dynamic get password;
   @JsonKey(ignore: true)
   _$$_LoginDataCopyWith<_$_LoginData> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$_SignUpDataCopyWith<$Res> {
-  factory _$$_SignUpDataCopyWith(
-          _$_SignUpData value, $Res Function(_$_SignUpData) then) =
-      __$$_SignUpDataCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String email, dynamic password});
-}
-
-/// @nodoc
-class __$$_SignUpDataCopyWithImpl<$Res>
-    extends _$LoginEventCopyWithImpl<$Res, _$_SignUpData>
-    implements _$$_SignUpDataCopyWith<$Res> {
-  __$$_SignUpDataCopyWithImpl(
-      _$_SignUpData _value, $Res Function(_$_SignUpData) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-    Object? password = freezed,
-  }) {
-    return _then(_$_SignUpData(
-      null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      freezed == password ? _value.password! : password,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_SignUpData implements _SignUpData {
-  const _$_SignUpData(this.email, this.password);
-
-  @override
-  final String email;
-  @override
-  final dynamic password;
-
-  @override
-  String toString() {
-    return 'LoginEvent.signUpData(email: $email, password: $password)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_SignUpData &&
-            (identical(other.email, email) || other.email == email) &&
-            const DeepCollectionEquality().equals(other.password, password));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, email, const DeepCollectionEquality().hash(password));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_SignUpDataCopyWith<_$_SignUpData> get copyWith =>
-      __$$_SignUpDataCopyWithImpl<_$_SignUpData>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, dynamic password) loginData,
-    required TResult Function(String email, dynamic password) signUpData,
-    required TResult Function() googleLogin,
-  }) {
-    return signUpData(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, dynamic password)? loginData,
-    TResult? Function(String email, dynamic password)? signUpData,
-    TResult? Function()? googleLogin,
-  }) {
-    return signUpData?.call(email, password);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, dynamic password)? loginData,
-    TResult Function(String email, dynamic password)? signUpData,
-    TResult Function()? googleLogin,
-    required TResult orElse(),
-  }) {
-    if (signUpData != null) {
-      return signUpData(email, password);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LoginData value) loginData,
-    required TResult Function(_SignUpData value) signUpData,
-    required TResult Function(_GoogleLogin value) googleLogin,
-  }) {
-    return signUpData(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LoginData value)? loginData,
-    TResult? Function(_SignUpData value)? signUpData,
-    TResult? Function(_GoogleLogin value)? googleLogin,
-  }) {
-    return signUpData?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LoginData value)? loginData,
-    TResult Function(_SignUpData value)? signUpData,
-    TResult Function(_GoogleLogin value)? googleLogin,
-    required TResult orElse(),
-  }) {
-    if (signUpData != null) {
-      return signUpData(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _SignUpData implements LoginEvent {
-  const factory _SignUpData(final String email, final dynamic password) =
-      _$_SignUpData;
-
-  String get email;
-  dynamic get password;
-  @JsonKey(ignore: true)
-  _$$_SignUpDataCopyWith<_$_SignUpData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -413,7 +254,6 @@ class _$_GoogleLogin implements _GoogleLogin {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, dynamic password) loginData,
-    required TResult Function(String email, dynamic password) signUpData,
     required TResult Function() googleLogin,
   }) {
     return googleLogin();
@@ -423,7 +263,6 @@ class _$_GoogleLogin implements _GoogleLogin {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, dynamic password)? loginData,
-    TResult? Function(String email, dynamic password)? signUpData,
     TResult? Function()? googleLogin,
   }) {
     return googleLogin?.call();
@@ -433,7 +272,6 @@ class _$_GoogleLogin implements _GoogleLogin {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, dynamic password)? loginData,
-    TResult Function(String email, dynamic password)? signUpData,
     TResult Function()? googleLogin,
     required TResult orElse(),
   }) {
@@ -447,7 +285,6 @@ class _$_GoogleLogin implements _GoogleLogin {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginData value) loginData,
-    required TResult Function(_SignUpData value) signUpData,
     required TResult Function(_GoogleLogin value) googleLogin,
   }) {
     return googleLogin(this);
@@ -457,7 +294,6 @@ class _$_GoogleLogin implements _GoogleLogin {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginData value)? loginData,
-    TResult? Function(_SignUpData value)? signUpData,
     TResult? Function(_GoogleLogin value)? googleLogin,
   }) {
     return googleLogin?.call(this);
@@ -467,7 +303,6 @@ class _$_GoogleLogin implements _GoogleLogin {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginData value)? loginData,
-    TResult Function(_SignUpData value)? signUpData,
     TResult Function(_GoogleLogin value)? googleLogin,
     required TResult orElse(),
   }) {
@@ -487,38 +322,50 @@ mixin _$LoginState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isLoding) loding,
     required TResult Function(UserData loginSuccess) success,
+    required TResult Function(String massage) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isLoding)? loding,
     TResult? Function(UserData loginSuccess)? success,
+    TResult? Function(String massage)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isLoding)? loding,
     TResult Function(UserData loginSuccess)? success,
+    TResult Function(String massage)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -580,7 +427,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isLoding) loding,
     required TResult Function(UserData loginSuccess) success,
+    required TResult Function(String massage) error,
   }) {
     return initial();
   }
@@ -589,7 +438,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isLoding)? loding,
     TResult? Function(UserData loginSuccess)? success,
+    TResult? Function(String massage)? error,
   }) {
     return initial?.call();
   }
@@ -598,7 +449,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isLoding)? loding,
     TResult Function(UserData loginSuccess)? success,
+    TResult Function(String massage)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -611,7 +464,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
   }) {
     return initial(this);
   }
@@ -620,7 +475,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
   }) {
     return initial?.call(this);
   }
@@ -629,7 +486,9 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -641,6 +500,150 @@ class _$_Initial implements _Initial {
 
 abstract class _Initial implements LoginState {
   const factory _Initial() = _$_Initial;
+}
+
+/// @nodoc
+abstract class _$$_LodingCopyWith<$Res> {
+  factory _$$_LodingCopyWith(_$_Loding value, $Res Function(_$_Loding) then) =
+      __$$_LodingCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isLoding});
+}
+
+/// @nodoc
+class __$$_LodingCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$_Loding>
+    implements _$$_LodingCopyWith<$Res> {
+  __$$_LodingCopyWithImpl(_$_Loding _value, $Res Function(_$_Loding) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoding = null,
+  }) {
+    return _then(_$_Loding(
+      null == isLoding
+          ? _value.isLoding
+          : isLoding // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Loding implements _Loding {
+  const _$_Loding(this.isLoding);
+
+  @override
+  final bool isLoding;
+
+  @override
+  String toString() {
+    return 'LoginState.loding(isLoding: $isLoding)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Loding &&
+            (identical(other.isLoding, isLoding) ||
+                other.isLoding == isLoding));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isLoding);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LodingCopyWith<_$_Loding> get copyWith =>
+      __$$_LodingCopyWithImpl<_$_Loding>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isLoding) loding,
+    required TResult Function(UserData loginSuccess) success,
+    required TResult Function(String massage) error,
+  }) {
+    return loding(isLoding);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isLoding)? loding,
+    TResult? Function(UserData loginSuccess)? success,
+    TResult? Function(String massage)? error,
+  }) {
+    return loding?.call(isLoding);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isLoding)? loding,
+    TResult Function(UserData loginSuccess)? success,
+    TResult Function(String massage)? error,
+    required TResult orElse(),
+  }) {
+    if (loding != null) {
+      return loding(isLoding);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loding value) loding,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+  }) {
+    return loding(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loding value)? loding,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+  }) {
+    return loding?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loding value)? loding,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (loding != null) {
+      return loding(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loding implements LoginState {
+  const factory _Loding(final bool isLoding) = _$_Loding;
+
+  bool get isLoding;
+  @JsonKey(ignore: true)
+  _$$_LodingCopyWith<_$_Loding> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -708,7 +711,9 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isLoding) loding,
     required TResult Function(UserData loginSuccess) success,
+    required TResult Function(String massage) error,
   }) {
     return success(loginSuccess);
   }
@@ -717,7 +722,9 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isLoding)? loding,
     TResult? Function(UserData loginSuccess)? success,
+    TResult? Function(String massage)? error,
   }) {
     return success?.call(loginSuccess);
   }
@@ -726,7 +733,9 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isLoding)? loding,
     TResult Function(UserData loginSuccess)? success,
+    TResult Function(String massage)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -739,7 +748,9 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
   }) {
     return success(this);
   }
@@ -748,7 +759,9 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
   }) {
     return success?.call(this);
   }
@@ -757,7 +770,9 @@ class _$_Success implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -773,5 +788,148 @@ abstract class _Success implements LoginState {
   UserData get loginSuccess;
   @JsonKey(ignore: true)
   _$$_SuccessCopyWith<_$_Success> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ErrorCopyWith<$Res> {
+  factory _$$_ErrorCopyWith(_$_Error value, $Res Function(_$_Error) then) =
+      __$$_ErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String massage});
+}
+
+/// @nodoc
+class __$$_ErrorCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$_Error>
+    implements _$$_ErrorCopyWith<$Res> {
+  __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? massage = null,
+  }) {
+    return _then(_$_Error(
+      null == massage
+          ? _value.massage
+          : massage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Error implements _Error {
+  const _$_Error(this.massage);
+
+  @override
+  final String massage;
+
+  @override
+  String toString() {
+    return 'LoginState.error(massage: $massage)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Error &&
+            (identical(other.massage, massage) || other.massage == massage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, massage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ErrorCopyWith<_$_Error> get copyWith =>
+      __$$_ErrorCopyWithImpl<_$_Error>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isLoding) loding,
+    required TResult Function(UserData loginSuccess) success,
+    required TResult Function(String massage) error,
+  }) {
+    return error(massage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isLoding)? loding,
+    TResult? Function(UserData loginSuccess)? success,
+    TResult? Function(String massage)? error,
+  }) {
+    return error?.call(massage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isLoding)? loding,
+    TResult Function(UserData loginSuccess)? success,
+    TResult Function(String massage)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(massage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loding value) loding,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loding value)? loding,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loding value)? loding,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error implements LoginState {
+  const factory _Error(final String massage) = _$_Error;
+
+  String get massage;
+  @JsonKey(ignore: true)
+  _$$_ErrorCopyWith<_$_Error> get copyWith =>
       throw _privateConstructorUsedError;
 }
