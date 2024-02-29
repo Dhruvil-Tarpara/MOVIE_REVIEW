@@ -26,4 +26,3 @@ The Movie Review App allows users to discover, rate, and review movies. It provi
 - Database: Cloud Firestore
 - User Authentication: Firebase Authentication
 - UI Framework: Bootstrap
-
